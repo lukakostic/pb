@@ -1,2 +1,2 @@
 # pb
-pboard release for github pages
+pboard release repository for github pages
