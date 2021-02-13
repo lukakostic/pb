@@ -1,4 +1,4 @@
-let siteUrl = "https://lukakostic.github.io/pboard/";
+let siteUrl = "https://lukakostic.github.io/pb/";
 let pb = null;
 let board = "";
 window.onhashchange = function () {
