@@ -1,4 +1,4 @@
 # pb
 pboard release repository for github pages
 
-@lukakostic/pboard
+https://github.com/lukakostic/pboard
