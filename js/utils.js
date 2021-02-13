@@ -140,7 +140,7 @@ function EbyClass(className, element = document) {
 }
 function templateFChild(id) {
     let el = EbyId(id);
-    if (el instanceof HTMLTemplateElement)
+    if (el["content"] != undefined)
         return el.content.firstElementChild;
     return null;
 }
