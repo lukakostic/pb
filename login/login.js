@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-let authorizeButton, signoutButton, doRedirect = false;
+let authorizeButton = null;
+let signoutButton = null;
+let doRedirect = false;
 function handleClientLoad_Login() {
     authorizeButton = EbyId('authorize_button');
     signoutButton = EbyId('signout_button');
-    gapi.load('client:auth2', () => {
+    gapi.load('client:auth2', function () {
         gapi.client.init(driveAPI_Creds)
             .then(function () {
             gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus_Login);
