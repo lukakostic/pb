@@ -12,15 +12,13 @@ function fixAlbumUI() {
     return null;
 }
 function fixListUI(listEl = null) {
-    log("LIST ELEMENT fixListUI: ");
-    log(listEl, "LIST ELEMENT fixListUI. ");
     if (listEl != null) {
         let newPanel = EbyClass('newPanel', listEl)[0];
         newPanel.parentNode.appendChild(newPanel);
     }
     else {
         let album = this.fixAlbumUI();
-        let lists = EbyClass('list', album)[0];
+        let lists = EbyClass('list', album);
         for (let i = 0; i < lists.length; i++) {
             if (lists[i].id == "")
                 this.fixListUI(lists[i]);
