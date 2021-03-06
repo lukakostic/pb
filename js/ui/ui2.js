@@ -12,7 +12,8 @@ function fixAlbumUI() {
     return null;
 }
 function fixListUI(listEl = null) {
-    log(listEl, "LIST ELEMENT fixListUI: ");
+    log("LIST ELEMENT fixListUI: ");
+    log(listEl, "LIST ELEMENT fixListUI. ");
     if (listEl != null) {
         let newPanel = EbyClass('newPanel', listEl)[0];
         newPanel.parentNode.appendChild(newPanel);
