@@ -51,7 +51,7 @@ function backupsSearched() {
             continue;
         let btn = document.createElement('div');
         fld.appendChild(btn);
-        btn.style = "width: 100%;";
+        btn.style.cssText = "width: 100%;";
         btn.classList.toggle("input-group-append", true);
         set_dataId(btn, availableBackups[i].id);
         btn.innerHTML = `
@@ -64,10 +64,11 @@ function backupsSearched() {
 }
 function makeBackupClicked(event) {
     let bkName = EbyId('newBackup').value;
-    storage.fileUpload({ name: bkName + '.pbb', body: buildPBoard() }, () => {
+    storage.fileUpload({ name: bkName + '.pbb', body: buildPBoard() }, (response) => {
+        log(response);
         backups(() => { backupsSearched(); });
         alert('Made backup');
-    }, (msg) => { log(msg); });
+    });
 }
 function deleteBackupClicked(event) {
     if (event.srcElement == null)
@@ -100,7 +101,7 @@ function loadBackupClicked(event) {
     storage.fileDownload(availableBackups[ind].name, (content) => {
         resetData();
         loadPBoard(content);
-        ui.pageOpened();
+        pageOpened();
         alert('Loaded');
         if (confirm('Save?'))
             sync.saveAll();

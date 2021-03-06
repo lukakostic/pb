@@ -78,8 +78,8 @@ function removeClicked() {
     if (pb.boards[id].attributes['references'] <= 0)
         Board.deleteBoardById(id);
     hideOptionsDialog();
-    ui.clearLists();
-    ui.draw();
+    clearLists();
+    draw();
     sync.saveAll();
 }
 function deleteClicked() {
@@ -92,8 +92,8 @@ function deleteClicked() {
     let id = dataId(idEl);
     Board.deleteBoardById(id);
     hideOptionsDialog();
-    ui.clearLists();
-    ui.draw();
+    clearLists();
+    draw();
     sync.saveAll();
 }
 function copyIdClicked() {

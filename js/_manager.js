@@ -1,6 +1,7 @@
 let siteUrl = "https://lukakostic.github.io/pb/";
 let pb = null;
 let board = "";
+let currentVersion = 3.1;
 window.onhashchange = function () {
     set_board(boardFromUrl(url()));
 };
@@ -16,7 +17,7 @@ function set_board(value) {
     board = value;
     boardHistory.add(value);
     window.location.hash = value;
-    ui.pageOpened();
+    pageOpened();
 }
 function resetData() {
     logw("resetData()");
@@ -42,11 +43,11 @@ function loadPBoard(content, checkTime = true) {
     sync.flashLoadingIndicator();
     sync.lastSyncTime = saveFile.syncTime;
     pb = saveFile.pb;
-    ui.draw();
+    draw();
     return true;
 }
 function OnStorageLoad() {
-    ui.htmlLoaded();
+    htmlLoaded();
     gapi.load('client:auth2', () => {
         gapi.client.init(driveAPI_Creds).then(() => {
             gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
@@ -66,7 +67,7 @@ function updateSigninStatus(isSignedIn) {
         if (sync.loadCachedContent() == false)
             resetData();
         else
-            ui.pageOpened();
+            pageOpened();
         sync.loadAll();
         sync.start(false);
     }

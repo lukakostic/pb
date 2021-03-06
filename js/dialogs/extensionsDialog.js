@@ -32,7 +32,7 @@ function extensionBtnTemplate(text = "Extension", id = "", parent = null, click 
     let b = document.createElement('button');
     if (parent != null)
         parent.appendChild(b);
-    b.style = "text-align: left; margin: 2px; color: white; border: 0px; background-color: #4444;  width: 100%;";
+    b.style.cssText = "text-align: left; margin: 2px; color: white; border: 0px; background-color: #4444;  width: 100%;";
     set_dataId(b, id);
     b.onclick = click;
     b.innerHTML = text;
@@ -42,7 +42,7 @@ function boardExtensionBtnTemplate(text = "Extension", checked = true, id = "", 
     let b = document.createElement('button');
     if (parent != null)
         parent.appendChild(b);
-    b.style = "text-align: left; margin: 2px; color: white; border: 0px; background-color: #4444;  width: 100%;";
+    b.style.cssText = "text-align: left; margin: 2px; color: white; border: 0px; background-color: #4444;  width: 100%;";
     set_dataId(b, id);
     b.onclick = click;
     b.innerHTML = `

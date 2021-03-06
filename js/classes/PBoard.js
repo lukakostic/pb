@@ -16,7 +16,7 @@ const BoardType = {
     Text: 1,
     Board: 2,
     List: 3,
-    Project: 4
+    PBoard: 4
 };
 class Board {
     constructor(type, name, content, attributes = {}, id = null) {

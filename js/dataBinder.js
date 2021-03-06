@@ -3,7 +3,7 @@ function boardTitleChanged(event) {
     if (event.srcElement == null)
         event.srcElement = event.target;
     pb.boards[board].name = event.srcElement.value;
-    ui.loadAllBoardsByDataId(board);
+    loadAllBoardsByDataId(board);
     sync.save.dirty = true;
 }
 function boardDescriptionChanged(event) {
@@ -11,7 +11,7 @@ function boardDescriptionChanged(event) {
     if (event.srcElement == null)
         event.srcElement = event.target;
     set_brdAttr(board, 'description', event.srcElement.value);
-    ui.loadAllBoardsByDataId(board);
+    loadAllBoardsByDataId(board);
     sync.save.dirty = true;
 }
 function listTitleChanged(event) {

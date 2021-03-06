@@ -16,9 +16,9 @@ let sync = {
         this.lastSyncTime = (new Date()).getTime();
     },
     flashLoadingIndicator: function () {
-        ui.startLoadingIndicator();
+        startLoadingIndicator();
         setTimeout(() => {
-            ui.stopLoadingIndicator();
+            stopLoadingIndicator();
         }, 2000);
     },
     loadCachedContent: function () {
@@ -45,12 +45,12 @@ let sync = {
             log('saveAll ', contents);
             if (sync.syncedOnline == false)
                 return console.warn('Wont save: Not once synced with online. Wait or refresh.');
-            ui.startSavingIndicator();
+            startSavingIndicator();
             sync.saveCachedContent(contents);
             storage.fileUpload({ name: sync.fileName, body: contents }, () => {
                 if (callback != null)
                     callback();
-                ui.stopSavingIndicator();
+                stopSavingIndicator();
                 extensions.invoke('saveAll');
                 sync.save.dirty = false;
             });

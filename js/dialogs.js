@@ -1,7 +1,7 @@
 function showBoardBoardDialog(event, id = null) {
     if (event.srcElement == null)
         event.srcElement = event.target;
-    if (ui.dragItem != null && (event.srcElement == ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0]))
+    if (drags.dragItem != null && (event.srcElement == drags.dragItem[0] || event.srcElement.parentNode == drags.dragItem[0]))
         return;
     if (id == null)
         id = dataId(event.srcElement.parentNode);
@@ -41,8 +41,8 @@ function newReferenceBtn(event) {
     let lst = event.srcElement.parentNode.parentNode.parentNode;
     let lstId = dataId(lst);
     pb.boards[lstId].content.push(refer);
-    ui.clearBoards(lst);
-    ui.loadList(lst, lstId);
+    clearBoards(lst);
+    loadList(lst, lstId);
     pb.boards[refer].attributes['references']++;
     hideOptionsDialog();
     sync.saveAll();

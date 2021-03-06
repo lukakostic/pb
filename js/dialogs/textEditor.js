@@ -3,7 +3,7 @@ let textBoardGettingEdited = null;
 function showTextBoardDialog(event) {
     if (event.srcElement == null)
         event.srcElement = event.target;
-    if (ui.dragItem != null && (event.srcElement == ui.dragItem[0] || event.srcElement.parentNode == ui.dragItem[0]))
+    if (drags.dragItem != null && (event.srcElement == drags.dragItem[0] || event.srcElement.parentNode == drags.dragItem[0]))
         return;
     let textBtn = event.srcElement;
     let brdId = dataId(textBtn.parentNode);
@@ -19,7 +19,7 @@ function showTextBoardDialog(event) {
     set_dataId(modal[0], brd.id);
     modal.modal('show');
     setTimeout(() => {
-        ui.expandInput(text[0]);
+        expandInput(text[0]);
         EbyId('textBoardDialogTitle').select();
     }, 10);
 }
@@ -40,7 +40,7 @@ function textTitleChanged(event) {
     if (event.srcElement == null)
         event.srcElement = event.target;
     pb.boards[brdId].name = event.srcElement.value;
-    ui.loadAllBoardsByDataId(brdId);
+    loadAllBoardsByDataId(brdId);
     sync.save.dirty = true;
 }
 function textDescriptionChanged(event) {
@@ -48,6 +48,6 @@ function textDescriptionChanged(event) {
     if (event.srcElement == null)
         event.srcElement = event.target;
     pb.boards[brdId].content = event.srcElement.value;
-    ui.loadAllBoardsByDataId(brdId);
+    loadAllBoardsByDataId(brdId);
     sync.save.dirty = true;
 }

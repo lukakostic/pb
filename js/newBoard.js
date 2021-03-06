@@ -7,9 +7,9 @@ function newText(event) {
     pb.boards[brd.id] = brd;
     pb.boards[dataId(parent)].content.push(brd.id);
     parent.appendChild(el);
-    ui.loadTextBoard(el, brd.id);
+    loadTextBoard(el, brd.id);
     EbyClass('textBtn', el)[0].click();
-    ui.fixListUI(parent);
+    fixListUI(parent);
     sync.saveAll();
 }
 function newBoard(event) {
@@ -22,8 +22,8 @@ function newBoard(event) {
     pb.boards[brd.id] = brd;
     pb.boards[dataId(parent)].content.push(brd.id);
     parent.appendChild(el);
-    ui.loadBoardBoard(el, brd.id);
-    ui.fixListUI(parent);
+    loadBoardBoard(el, brd.id);
+    fixListUI(parent);
     EbyClass('textBtn', el)[0].click();
     sync.saveAll(() => {
     });
@@ -43,9 +43,9 @@ function newList(event) {
     pb.boards[board].content.push(brd.id);
     html.boardAlbum.appendChild(el);
     set_dataId(el, brd.id);
-    ui.fixNewListUI();
-    ui.fixAlbumUI();
-    ui.makeDraggable();
+    fixNewListUI();
+    fixAlbumUI();
+    makeDraggable();
     $(inp).val('');
     sync.saveAll();
 }
