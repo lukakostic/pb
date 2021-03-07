@@ -1,8 +1,8 @@
+let autoUI = -1;
 let drags = {
     dragOld: null, dragNew: null, dragItem: null, oldDragIndex: null, newDragIndex: null,
-    dragStartTime: -999,
+    dragStartTime: -999
 };
-let autoUI = -1;
 function htmlLoaded() {
     if (autoUI == -1)
         autoUI = setInterval(() => {
@@ -26,15 +26,11 @@ function htmlLoaded() {
     EbyId('saveBtn').onclick = () => { sync.saveAll(null, true); };
     EbyId('loadBtn').onclick = () => { sync.loadAll(); };
     EbyId('saveDownloadBtn').onclick = () => {
-        let text = buildPBoard();
-        let date = new Date();
-        let dateTag = date.toISOString().replace('T', ' ').substring(2, 16);
-        let filename = "PBoard " + dateTag + ".txt";
         function saveBlobFile(name, type, data) {
             if (data !== null && navigator.msSaveBlob)
                 return navigator.msSaveBlob(new Blob([data], { type: type }), name);
-            var a = $("<a style='display: none;'/>");
-            var url = window.URL.createObjectURL(new Blob([data], { type: type }));
+            let a = $("<a style='display: none;'/>");
+            let url = window.URL.createObjectURL(new Blob([data], { type: type }));
             a.attr("href", url);
             a.attr("download", name);
             $("body").append(a);
@@ -42,6 +38,9 @@ function htmlLoaded() {
             window.URL.revokeObjectURL(url);
             a.remove();
         }
+        let text = buildPBoard();
+        let dateTag = (new Date()).toISOString().replace('T', ' ').substring(2, 16);
+        let filename = "PBoard " + dateTag + ".txt";
         saveBlobFile(filename, "data:attachment/text", text);
     };
 }

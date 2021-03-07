@@ -14,7 +14,7 @@ let html = {
     extrasBack: null,
     boardTitle: null,
     boardDescription: null,
-    find: function () {
+    find() {
         this.textBrdTemplate = templateFChild('textBoardTemplate');
         this.boardBrdTemplate = templateFChild('boardBoardTemplate');
         this.listTemplate = templateFChild('listTemplate');

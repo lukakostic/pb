@@ -12,16 +12,16 @@ let sync = {
     load: {
         interval: null,
     },
-    setSyncTime: function () {
+    setSyncTime() {
         this.lastSyncTime = (new Date()).getTime();
     },
-    flashLoadingIndicator: function () {
+    flashLoadingIndicator() {
         startLoadingIndicator();
         setTimeout(() => {
             stopLoadingIndicator();
         }, 2000);
     },
-    loadCachedContent: function () {
+    loadCachedContent() {
         let contents = window.localStorage.getItem('cached');
         if (contents == null || contents == undefined)
             return false;
@@ -32,10 +32,10 @@ let sync = {
         extensions.invoke('loadCached');
         return true;
     },
-    saveCachedContent: (contents) => {
+    saveCachedContent(contents) {
         window.localStorage.setItem('cached', contents);
     },
-    saveAll: function (callback = null, really = false) {
+    saveAll(callback = null, really = false) {
         if (really == false)
             return;
         try {
@@ -59,7 +59,7 @@ let sync = {
             alog(e);
         }
     },
-    loadAll: function (callback = null) {
+    loadAll(callback = null) {
         try {
             extensions.invoke('pre_loadAll');
             storage.fileDownload(sync.fileName, (contents) => {
@@ -81,7 +81,7 @@ let sync = {
             alog(e);
         }
     },
-    start: function (doAutoLoadSave = true) {
+    start(doAutoLoadSave = true) {
         if (doAutoLoadSave == false || pb.preferences['autoLoadInterval'].toString() == "0")
             return;
         this.save.interval = setInterval(() => {
@@ -102,5 +102,5 @@ let sync = {
                 sync.loadAll();
             }
         }, pb.preferences['autoLoadInterval'] * 1000);
-    },
+    }
 };
