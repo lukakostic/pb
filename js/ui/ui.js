@@ -27,7 +27,9 @@ function htmlLoaded() {
     EbyId('loadBtn').onclick = () => { sync.loadAll(); };
     EbyId('saveDownloadBtn').onclick = () => {
         let text = buildPBoard();
-        let filename = "PBoard " + new Date().toLocaleDateString().replace(',', ' ') + ".txt";
+        let date = new Date();
+        let dateTag = date.toDateString() + " " + date.toTimeString();
+        let filename = "PBoard " + dateTag + ".txt";
         function saveBlobFile(name, type, data) {
             if (data !== null && navigator.msSaveBlob)
                 return navigator.msSaveBlob(new Blob([data], { type: type }), name);
