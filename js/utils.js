@@ -1,4 +1,4 @@
-let LOG_DISABLED = false;
+let LOG_DISABLED = true;
 let LOGW_DISABLED = false;
 let LOGE_DISABLED = false;
 let log = function () {
