@@ -27,13 +27,20 @@ function htmlLoaded() {
     EbyId('loadBtn').onclick = () => { sync.loadAll(); };
     EbyId('saveDownloadBtn').onclick = () => {
         let text = buildPBoard();
-        let filename = "PBoard " + new Date().toLocaleDateString().replace(',', ' ') + ".json.txt";
-        var blob = new Blob([text], { type: "text/plain" });
-        var url = window.URL.createObjectURL(blob);
-        var a = document.createElement("a");
-        a.href = url;
-        a.download = filename;
-        a.click();
+        let filename = "PBoard " + new Date().toLocaleDateString().replace(',', ' ') + ".txt";
+        function saveBlobFile(name, type, data) {
+            if (data !== null && navigator.msSaveBlob)
+                return navigator.msSaveBlob(new Blob([data], { type: type }), name);
+            var a = $("<a style='display: none;'/>");
+            var url = window.URL.createObjectURL(new Blob([data], { type: type }));
+            a.attr("href", url);
+            a.attr("download", name);
+            $("body").append(a);
+            a[0].click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        }
+        saveBlobFile(filename, "data:attachment/text", text);
     };
 }
 function pageOpened() {
