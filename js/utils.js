@@ -1,5 +1,5 @@
 let LOG_DISABLED = true;
-let LOGW_DISABLED = false;
+let LOGW_DISABLED = true;
 let LOGE_DISABLED = false;
 let log = function () {
     if (LOG_DISABLED)
