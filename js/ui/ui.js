@@ -25,6 +25,16 @@ function htmlLoaded() {
     EbyId('upBtn').onclick = goUp;
     EbyId('saveBtn').onclick = () => { sync.saveAll(null, true); };
     EbyId('loadBtn').onclick = () => { sync.loadAll(); };
+    EbyId('saveDownloadBtn').onclick = () => {
+        let text = buildPBoard();
+        let filename = "PBoard " + new Date().toLocaleDateString().replace(',', ' ') + ".json.txt";
+        var blob = new Blob([text], { type: "text/plain" });
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+    };
 }
 function pageOpened() {
     log("pageOpened()");
