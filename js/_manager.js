@@ -12,11 +12,11 @@ function set_url(value) {
     boardHistory.add(value);
     window.location.href = value;
 }
-function set_board(value) {
-    log("set_board('" + value + "')");
-    board = value;
-    boardHistory.add(value);
-    window.location.hash = value;
+function set_board(id) {
+    log("set_board('" + id + "')");
+    board = id;
+    boardHistory.add(id);
+    window.location.hash = id;
     pageOpened();
 }
 function resetData() {
