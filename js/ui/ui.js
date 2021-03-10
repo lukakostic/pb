@@ -21,6 +21,10 @@ function htmlLoaded() {
             }
         }, 100);
     html.find();
+    EbyId('newlist').onsubmit = (event) => {
+        event.preventDefault();
+        newList(event);
+    };
     EbyId('homeBtn').onclick = goHome;
     EbyId('upBtn').onclick = goUp;
     EbyId('saveBtn').onclick = () => { sync.saveAll(null, true); };

@@ -77,32 +77,31 @@ onreadystatechange="if(this.readyState==='complete')this.onload()">
   <header class="header">
   <div id="header" class="navbar bg-dark" style="padding: 1px !important;">
     
-    <div class="collapse bg-dark" id="navbarHeader" style="width: 100%; transition: none; padding: 0px !important;">
+    <div id="navbarHeader" class="collapse bg-dark" style="width: 100%; transition: none; padding: 0px !important;">
       <div class="container-fluid" style="width: 100%; padding: 0px !important;">
         
           <form class="row text bg-inherit" style="margin: 0px; width: calc(100% - 44px);">
-              <textarea wrap="hard" class="expandInput card-name bg-inherit"  id="boardDescription"
-                style="resize: none;  padding: 0.5rem !important; text-overflow: ellipsis; color:white; border: 0px; width: 100%;"
-                oninput="expandInput(this);boardDescriptionChanged(event);" placeholder="Board Description">Board Description</textarea>
+              <textarea id="boardDescription" oninput="expandInput(this);boardDescriptionChanged(event);" placeholder="Board Description" wrap="hard" class="expandInput card-name bg-inherit" style="resize: none;  padding: 0.5rem !important; text-overflow: ellipsis; color:white; border: 0px; width: 100%;">
+              Board Description</textarea>
       
               <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
             </form>
 
-            <button class="btn btn-spaced-1 btn-secondary" style="position: absolute; right: 2px; top: 0px; width: 40px; height: 40px;" onclick="showExtrasClicked(event)"><i class="fas fa-cogs"></i></button>
+            <button onclick="showExtrasClicked(event)" class="btn btn-spaced-1 btn-secondary" style="position: absolute; right: 2px; top: 0px; width: 40px; height: 40px;">
+              <i class="fas fa-cogs"></i>
+            </button>
 
       </div>
     </div>
 
-    <div class="container d-flex justify-content-start"
-      style="max-width:100%; padding: 1px !important; margin-top: -7px; margin-bottom: -7px;">
+    <div class="container d-flex justify-content-start" style="max-width:100%; padding: 1px !important; margin-top: -7px; margin-bottom: -7px;">
 
       <button id="homeBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-home"></i></button>
       <button id="upBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i class="fas fa-arrow-left"></i></button>
 
       <div class="navbar-brand" style="margin-right: 0px; max-width: 50%">
-        <input id="boardTitle" type="text" class="btn btn-spaced-1 col-sm-5"
-          style="overflow: hidden; text-overflow: ellipsis; max-width: 100%; text-align: left; color: white; font-weight: bold; font-size: 90%;"
-          placeholder="Title" aria-label="Title" aria-describedby="basic-addon2" oninput="boardTitleChanged(event)">
+        <input id="boardTitle" oninput="boardTitleChanged(event)" type="text" class="btn btn-spaced-1 col-sm-5" placeholder="Title" aria-label="Title" aria-describedby="basic-addon2" 
+          style="overflow: hidden; text-overflow: ellipsis; max-width: 100%; text-align: left; color: white; font-weight: bold; font-size: 90%;">
       </div>
       
       <button id="saveBtn" class="btn btn-spaced-2 btn-secondary bg-dark"><i class="fas fa-save"></i></button>
@@ -112,9 +111,8 @@ onreadystatechange="if(this.readyState==='complete')this.onload()">
       <button id="convertBtn" class="btn btn-spaced-1 btn-secondary bg-dark"><i
           class="fas fa-exchange-alt"></i></button>
       -->
-      <button class="btn btn-spaced-1 btn-secondary bg-dark ml-auto" type="button" data-toggle="collapse" data-target="#navbarHeader"
-        aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation"
-         onclick="setTimeout(()=>{expandInput(document.getElementById('boardDescription'));},1);">
+      <button onclick="setTimeout(()=>{expandInput(document.getElementById('boardDescription'));},1);" class="btn btn-spaced-1 btn-secondary bg-dark ml-auto" type="button" data-toggle="collapse" data-target="#navbarHeader"
+        aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
          <i class="fas fa-bars"></i>
       </button>
 
@@ -124,17 +122,15 @@ onreadystatechange="if(this.readyState==='complete')this.onload()">
 </header>
 
 
-  <!-- Templates -->
+  <!-- Templates for all board types -->
 
 <template id="boardBoardTemplate">
-  <section class="board-board draggable board"
-    style="background-color: #343434;" data-id="">
+  <section data-id="" class="board-board draggable board" style="background-color: #343434;">
 
-    <button class="dot"
-      style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;" onclick="showOptionsDialog(event)"></button>
+    <button onclick="showOptionsDialog(event)" class="dot" style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;"></button>
 
-    <div class="textBtn text-white bg-inherit noborder"
-      style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;" onclick="showBoardBoardDialog(event)">Board</div>
+    <div onclick="showBoardBoardDialog(event)" class="textBtn text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
+    Board</div>
 
     <!--
           <div class="card mb-4 shadow-sm" style="border-radius: 0px; margin-bottom: 0px !important;">
@@ -144,7 +140,7 @@ onreadystatechange="if(this.readyState==='complete')this.onload()">
 
             </div>
           </div>
-  -->
+    -->
 
     <!-- Needs image here -->
 
@@ -153,38 +149,30 @@ onreadystatechange="if(this.readyState==='complete')this.onload()">
 
 
 <template id="textBoardTemplate">
-    <section class="text-board draggable board"
-    style="background-color: #444444;" data-id="">
+  <section data-id="" class="text-board draggable board" style="background-color: #444444;">
 
-      <button class="dot"
-        style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;" onclick="showOptionsDialog(event)"></button>
+    <button" onclick="showOptionsDialog(event)" class="dot" style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;"></button>
 
-      <div class="textBtn text-white bg-inherit noborder"
-        style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;" onclick="showTextBoardDialog(event)"><span class="descriptionIcon fa fa-align-right d-none" style="font-size: 12px; margin-top:-2px; color:#777777;">&nbsp;</span>Text</div>
+    <div onclick="showTextBoardDialog(event)" class="textBtn text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
+      <span class="descriptionIcon fa fa-align-right d-none" style="font-size: 12px; margin-top:-2px; color:#777777;">&nbsp;</span>
+      Text
+    </div>
 
-
-    </section>
+  </section>
 </template>
 
 
 <template id="listTemplate">
-
-  <div class="list draggableList"
-    style="background-color: #555555;"
-    data-id="">
+  <div data-id="" class="list draggableList" style="background-color: #555555;">
     
     <!-- List title -->
     <div class="title row justify-content-between bg-inherit" style="margin: 0px; width:100%;">
 
-      <div type="text" class="title-text card-name bg-inherit noborder editable"
-        style="width: calc(100% - 16px); height: 27px !important; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white;"
-        oninput="listTitleChanged(event)" contenteditable="true">
-        <input type="text" class="title-text card-name bg-inherit noborder editable"
-        style="width: calc(100% - 16px); height: 27px !important; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white;"
-        oninput="listTitleChanged(event)" contenteditable="true"></input>
+      <div oninput="listTitleChanged(event)" contenteditable="true" type="text" class="title-text card-name bg-inherit noborder editable" style="width: calc(100% - 16px); height: 27px !important; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white;">
+        <input oninput="listTitleChanged(event)" contenteditable="true" type="text" class="title-text card-name bg-inherit noborder editable" style="width: calc(100% - 16px); height: 27px !important; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white;"></input>
       </div>
 
-      <button type="button" class="dot" style="display:block; position:relative; margin-left:auto; margin-top: 0px;" onclick="showOptionsDialog(event,this.parentNode.parentNode)"></button>
+      <button onclick="showOptionsDialog(event,this.parentNode.parentNode)" type="button" class="dot" style="display:block; position:relative; margin-left:auto; margin-top: 0px;"></button>
 
     </div>
 
@@ -195,29 +183,27 @@ onreadystatechange="if(this.readyState==='complete')this.onload()">
 
 
     <!-- New Text,Board,Reference buttons at list bottom template -->
-    <div class="newPanel row order-last bg-inherit"
-      style="margin-left: 0px; margin-right: 0px;">
+    <div class="newPanel row order-last bg-inherit" style="margin-left: 0px; margin-right: 0px;">
       <div class="container bg-inherit text-center justify-content-center" style="height: 34px;">
 
-        <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newText(event)">
+        <button onclick="newText(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
           Text
         </button>
 
-        <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newBoard(event)">
+        <button onclick="newBoard(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
           Board
         </button>
 
-        <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%;" onclick="newList(event)">
+        <button onclick="newList(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%;">
           List
         </button>
 
-        <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%" onclick="newReferenceBtn(event)">
+        <button onclick="newReferenceBtn(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
           Reference
         </button>
 
       </div>
     </div>
-
 
 
   </div>
@@ -353,18 +339,14 @@ onreadystatechange="if(this.readyState==='complete')this.onload()">
 
 
     <!-- Multi List Board -->
-    <div id="boardAlbum" class="bg-inherit draggableAlbum"
-      style="padding: 5px !important; background:rgba(0,0,0,0);">
+    <div id="boardAlbum" class="bg-inherit draggableAlbum" style="padding: 5px !important; background:rgba(0,0,0,0);">
 
       <!-- Lists Go Here -->
 
-      <form id="newlist" class="list"
-        style="vertical-align: top;"
-        onsubmit="event.preventDefault();newList(event);">
+      <!--onsbumit added thru code--> 
+      <form id="newlist" class="list" style="vertical-align: top;">
 
-        <input type="text" class="bg-dark"
-          style="width: 100%; height: 31px; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white; border: 0px;"
-          placeholder="Add a new list..." onfocusout="this.value = ''"></input>
+        <input onfocusout="this.value = ''" type="text" class="bg-dark" placeholder="Add a new list..." style="width: 100%; height: 31px; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white; border: 0px;"></input>
 
         <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" /></input>
 
@@ -375,53 +357,52 @@ onreadystatechange="if(this.readyState==='complete')this.onload()">
 
 
     <!-- Single List Board -->
-    <div id="listAlbum" class="d-none bg-inherit"
-      style="padding: 5px !important; padding-top: 50px !important; background:rgba(0,0,0,0); margin: 0 auto;">
+    <div id="listAlbum" class="d-none bg-inherit" style="padding: 5px !important; padding-top: 50px !important; background:rgba(0,0,0,0); margin: 0 auto;">
 
       <!-- Lists Go Here -->
 
-      <div id="main-list" class="main-list draggableList bg-inherit" style="background:rgba(0,0,0,0);" data-id="">
+      <div id="main-list" data-id="" class="main-list draggableList bg-inherit" style="background:rgba(0,0,0,0);">
+      
         <div id="filler" class="title-text" value="" style="display: none;"></div> <!--Filler, to compensate for no title-->
 
-      <!-- Content -->
+        <!-- Content -->
 
-      <!--
-      <form class="text row bg-dark" style="margin: 0px; width:100%;">
-        <textarea name="message" rows="4" cols="40"  wrap="hard" class="card-name bg-dark"
-        style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
-        onkeypress="expandInput(this)" oninput="expandInput(this)" onchange="expandInput(this)">Some Text Some Text Some Text Some Text Some Text Some Text Some Text</textarea>
-        
-        <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
-      </form>
-      -->
-      
-      <!-- New Text,Board,Reference buttons at list bottom template -->
-      <section class="newPanel board" id="newBoardMain"
-      style="background-color: #555555;">
-
-        <div class="text-center justify-content-center" style="height: 100%;">
-
-          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newText(event)">
-            Text
-          </button>
-
-          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newBoard(event)">
-            Board
-          </button>
-
-          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newList(event)">
-            List
-          </button>
+        <!--
+        <form class="text row bg-dark" style="margin: 0px; width:100%;">
+          <textarea name="message" rows="4" cols="40"  wrap="hard" class="card-name bg-dark"
+          style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
+          onkeypress="expandInput(this)" oninput="expandInput(this)" onchange="expandInput(this)">Some Text Some Text Some Text Some Text Some Text Some Text Some Text</textarea>
           
-          <button type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;" onclick="newReferenceBtn(event)">
-            Reference
-          </button>
+          <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
+        </form>
+        -->
+        
+        <!-- New Text,Board,Reference buttons at list bottom template -->
+        <section id="newBoardMain" class="newPanel board" style="background-color: #555555;">
 
-        </div>
+          <div class="text-center justify-content-center" style="height: 100%;">
 
-      </section>
+            <button onclick="newText(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
+              Text
+            </button>
 
-    </div>
+            <button onclick="newBoard(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
+              Board
+            </button>
+
+            <button onclick="newList(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
+              List
+            </button>
+            
+            <button onclick="newReferenceBtn(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
+              Reference
+            </button>
+
+          </div>
+
+        </section>
+
+      </div>
 
     </div>
 
