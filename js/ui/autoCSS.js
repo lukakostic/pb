@@ -1,4 +1,7 @@
+let AUTOUI_DISABLE = true;
 function autoUI_function() {
+    if (AUTOUI_DISABLE)
+        return;
     document.body.style.setProperty("width", "100vw");
     if (window.innerWidth > 1250)
         html.listAlbum.style.width = '1250px';
