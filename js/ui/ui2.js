@@ -15,17 +15,8 @@ function startLoadingIndicator() {
 function stopLoadingIndicator() {
     html.loadingIndicator.style.display = 'none';
 }
-function expandInputAll() {
-    let expandoInputs = EbyClass('expandInput');
-    for (let i = 0; i < expandoInputs.length; i++)
-        expandInput(expandoInputs[i]);
-}
-function expandInput(el) {
-    el.style.height = '1px';
-    el.style.height = (1 + el.scrollHeight) + 'px';
-    el.parentNode.style.height = el.style.height;
-}
 function makeDraggable() {
+    return;
     let draggableLists = $('.draggableList');
     if (draggableLists.length !== 0)
         draggableLists.sortable({

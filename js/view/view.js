@@ -1,3 +1,4 @@
+let view = null;
 function generateView(_id, _parentEl = null) {
     let type = pb.boards[_id].type;
     if (type == BoardType.Text || type == BoardType.Board) {
@@ -35,7 +36,6 @@ class HolderView {
         this.generateElements();
     }
     render() {
-        this.buildSelf();
         for (let i = 0; i < this.elements.length; i++)
             this.elements[i].render();
     }
@@ -50,16 +50,71 @@ class AlbumView extends HolderView {
     constructor(_id = "", _parentEl = null) {
         super(_id, _parentEl);
     }
+    buildSelf() {
+        if (this.htmlEl == null) {
+            this.htmlEl = html.albumTemplate.cloneNode(true);
+            this.parentEl.appendChild(this.htmlEl);
+            this.holderElement = EbyName('album-holder', this.htmlEl);
+            this.adder = EbyName('album-adder', this.htmlEl);
+            this.adder.onkeypress = this.adder_onkeypress;
+        }
+        this.holderElement.innerHTML = "";
+    }
     render() {
+        this.buildSelf();
         super.render();
+    }
+    adder_onkeypress(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            alert(this.adder.value);
+        }
     }
 }
 class ListView extends HolderView {
     constructor(_id = "", _parentEl = null) {
         super(_id, _parentEl);
     }
+    buildSelf() {
+        super.buildSelf();
+        if (this.htmlEl == null) {
+            this.htmlEl = html.list2Template.cloneNode(true);
+            this.parentEl.appendChild(this.htmlEl);
+            this.holderElement = EbyName('list-holder', this.htmlEl);
+            this.header = EbyName('list-header', this.htmlEl);
+            this.title = EbyName('list-title', this.htmlEl);
+            this.title.onkeypress = this.title_onkeypress;
+            this.optionsBtn = EbyName('list-optionsBtn', this.htmlEl);
+            this.optionsBtn.onclick = this.optionsBtn_onclick;
+            this.adder = EbyName('list-adder', this.htmlEl);
+            this.adderText = EbyName('list-adderText', this.htmlEl);
+            this.adderText.onclick = this.adderText_onclick;
+            this.adderBoard = EbyName('list-adderBoard', this.htmlEl);
+            this.adderBoard.onclick = this.adderBoard_onclick;
+            this.adderList = EbyName('list-adderList', this.htmlEl);
+            this.adderList.onclick = this.adderList_onclick;
+            this.adderReference = EbyName('list-adderReference', this.htmlEl);
+            this.adderReference.onclick = this.adderReference_onclick;
+        }
+        this.holderElement.innerHTML = "";
+    }
     render() {
+        this.buildSelf();
         super.render();
+    }
+    title_onkeypress(event) {
+        alert(this.id);
+        alert(this.title.outerHTML);
+    }
+    optionsBtn_onclick(event) {
+    }
+    adderText_onclick(event) {
+    }
+    adderBoard_onclick(event) {
+    }
+    adderList_onclick(event) {
+    }
+    adderReference_onclick(event) {
     }
 }
 class TileView {
@@ -68,18 +123,37 @@ class TileView {
         this.parentEl = _parentEl;
         this.htmlEl = null;
         this.tileType = pb.boards[_id].type;
+        this.optionsBtn = null;
+        this.text = null;
+        this.textIcon = null;
     }
     buildSelf() {
         if (this.htmlEl == null) {
-            this.htmlEl = html.textBrdTemplate.cloneNode(true);
+            this.htmlEl = html.tileTemplate.cloneNode(true);
             this.parentEl.appendChild(this.htmlEl);
+            this.htmlEl.setAttribute('data-id', this.id);
+            this.optionsBtn = EbyName('tile-optionsBtn', this.htmlEl);
+            this.optionsBtn.onclick = this.optionsBtn_onclick;
+            this.text = EbyName('tile-text', this.htmlEl);
+            this.text.onclick = this.text_onclick;
+            this.textIcon = EbyName('tile-textIcon', this.htmlEl);
         }
     }
     render() {
         this.buildSelf();
+        this.text.innerText = pb.boards[this.id].name;
+        loadBackground(this.htmlEl, this.id);
+        if (pb.boards[this.id].type == BoardType.Text && pb.boards[this.id].content.length > 0)
+            this.textIcon.classList.remove('d-none');
+        else
+            this.textIcon.classList.add('d-none');
     }
     renderById(_id) {
         if (this.id == _id)
             return this.render();
+    }
+    optionsBtn_onclick(event) {
+    }
+    text_onclick(event) {
     }
 }

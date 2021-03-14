@@ -134,8 +134,11 @@ function nulledGetAttribute(el, attr) {
 function EbyId(id) {
     return document.getElementById(id);
 }
-function EbyClass(className, element = document) {
-    return element.getElementsByClassName(className);
+function EbyName(name, element) {
+    return element.querySelector('[data-name="' + name + '"]');
+}
+function EbyNameAll(name, element = document) {
+    return element.querySelectorAll('[data-name="' + name + '"]');
 }
 function templateFChild(id) {
     let el = EbyId(id);

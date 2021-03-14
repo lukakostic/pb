@@ -66,6 +66,7 @@
 <script defer src="./js/ui/styler.js"></script>
 
 <!-- dialog and editor scripts -->
+<!--
 <script defer src="./js/dialogs/optionsDialog.js"></script>
 <script defer src="./js/dialogs/extrasDialog.js"></script>
 <script defer src="./js/dialogs/tagsDialog.js"></script>
@@ -75,7 +76,7 @@
 <script defer src="./js/dialogs/textEditor.js"></script>
 <script defer src="./js/dialogs/extensionEditor.js"></script>
 <script defer src="./js/dialogs/tagEditor.js"></script>
-
+-->
 <script defer src="./js/_entry.js"></script>
 
 <!-- Connect to storage: google drive -->
@@ -92,16 +93,50 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   #main {
     padding-top: 50px; /* set based on headerHeight */
   }
+
   .list {
     width: 300px;
     background-color: #555555;
     flex: 0 0 auto; /*dont shrink or expand*/
   }
+
   .tile{
     background-color: #444444;
   }
   
+  .dot{
+    display:block;
+    position:relative;
+    margin-left:auto;
+    margin-bottom: -12px;
+  }
 
+  [data-name="tile-text"]{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+  }
+
+  
+  [data-name="tile-textIcon"]{
+    font-size: 12px;
+    margin-top:-2px;
+    color:#777777;
+  }
+
+  
+  [data-name="ablum-adder"]{
+    height: 31px;
+    padding: 2px 2px 0px 5px;
+    font-weight: bolder;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  
 </style>
 
   <header id="header">
@@ -274,30 +309,25 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
 <!-- List Holder (album): -->
 
-<template id="view-template">
+<template id="album-template">
    <!-- List View -->
-  <div data-id="" class="album d-flex bg-inh draggableAlbum">
+  <div data-name="ablum" class="album d-flex bg-inh draggableAlbum">
 
     <!-- Contents go here -->
-    <div>
+    <div data-name="ablum-holder">
+
     </div>
 
-  
-    <form id="newList" class="list" style="vertical-align: top;"> <!--onsbumit added thru code--> 
 
-      <input onfocusout="this.value = ''" type="text" class="bgDark cWhite fWidth" placeholder="Add a new list..."
-      style="height: 31px; padding: 2px 2px 0px 5px;  font-weight: bolder; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></input>
-
-      <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" /></input>
-
-    </form>
+    <input data-name="ablum-adder" type="text" onfocusout="this.value = ''"
+    class="list bgDark cWhite fWidth" placeholder="Add a new list..."></input>
 
   </div>
 </template>
 
  
 
-
+<!-- Unused, unfinished. -->
 <template id="tileHolderView-template">
 
     <div id="listAlbum" class="d-none bg-inherit" style="padding: 5px !important; padding-top: 50px !important; background:rgba(0,0,0,0); margin: 0 auto;">
@@ -351,70 +381,77 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   </template>
 
 
+
+
 <!-- Tile Holder (list): -->
 
 <template id="list-template">
-  <div data-id="" class="list draggableList">
+  <div data-name="list" class="list draggableList">
     
     <!-- List title -->
-    <div class="title row justify-content-between bg-inherit" style="margin: 0px; width:100%;">
+    <div data-name="list-header" class="row justify-content-between fWidth bg-inh">
+      <input data-name="list-title" type="text" class="title-text card-name bg-inh noborder editable"
+      style="width: calc(100% - 16px); height: 27px !important; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white;"></input>
 
-      <div oninput="listTitleChanged(event)" contenteditable="true" type="text" class="title-text card-name bg-inherit noborder editable" style="width: calc(100% - 16px); height: 27px !important; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white;">
-        <input oninput="listTitleChanged(event)" contenteditable="true" type="text" class="title-text card-name bg-inherit noborder editable" style="width: calc(100% - 16px); height: 27px !important; padding-left: 5px; padding-right: 2px; padding-top: 2px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white;"></input>
-      </div>
-
-      <button onclick="showOptionsDialog(event,this.parentNode.parentNode)" type="button" class="dot" style="display:block; position:relative; margin-left:auto; margin-top: 0px;"></button>
-
+      <button data-name="list-optionsBtn" type="button" class="dot"></button>
     </div>
-
 
     <!-- Tiles go here -->
     
-    <div>
+    <div data-name="list-holder">
+
     </div>
 
 
     <!-- New Text,Board,Reference buttons at list bottom template -->
-    <div class="newTile row order-last bg-inherit" style="margin-left: 0px; margin-right: 0px;">
-      <div class="container bg-inherit text-center justify-content-center" style="height: 34px;">
-
-        <button onclick="newText(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
-          Text
-        </button>
-
-        <button onclick="newBoard(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
-          Board
-        </button>
-
-        <button onclick="newList(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%;">
-          List
-        </button>
-
-        <button onclick="newReferenceBtn(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
-          Reference
-        </button>
-
-      </div>
+    <div data-name="list-adder" class="d-flex row order-last bg-inh" style="height: 34px; margin-left: 0px; margin-right: 0px;">
+      <button data-name="list-adder-text" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
+        Text
+      </button>
+      <button data-name="list-adder-board" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
+        Board
+      </button>
+      <button data-name="list-adder-list" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%;">
+        List
+      </button>
+      <button data-name="list-adder-reference" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%">
+        Reference
+      </button>
     </div>
 
 
   </div>
 </template>
 
+
+<!-- Onclick events and stuff should be added thru js. not in html. Html is just visual. -->
+
 <!-- Tiles / ContentHolders: -->
 
 <template id="tile-template">
-  <section data-id="" class="tile draggable">
+  <section data-name="tile" class="tile draggable">
 
-    <button" onclick="showOptionsDialog(event)" class="dot" style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;"></button>
+    <button data-name="tile-optionsBtn" class="dot"></button>
 
-    <div onclick="tileClicked(event)" class="textBtn text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
-      <span class="descriptionIcon fa fa-align-right d-none" style="font-size: 12px; margin-top:-2px; color:#777777;">&nbsp;</span>
+    <div data-name="tile-text" class="bg-inh">
+      <span data-name="tile-textIcon" class="fa fa-align-right d-none">&nbsp;</span>
       Text
     </div>
 
   </section>
 </template>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- Below are not in use: -->
 
@@ -423,7 +460,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
     <button onclick="showOptionsDialog(event)" class="dot" style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;"></button>
 
-    <div onclick="showBoardBoardDialog(event)" class="textBtn text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
+    <div onclick="showBoardBoardDialog(event)" class="text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
     Board</div>
 
 
@@ -438,7 +475,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
     <button" onclick="showOptionsDialog(event)" class="dot" style="display:block; position:relative; margin-left:auto; margin-bottom: -12px;"></button>
 
-    <div onclick="showTextBoardDialog(event)" class="textBtn text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
+    <div onclick="showTextBoardDialog(event)" class="text-white bg-inherit noborder" style="width: 100%; height: 100%; overflow: hidden; text-overflow: ellipsis;">
       <span class="descriptionIcon fa fa-align-right d-none" style="font-size: 12px; margin-top:-2px; color:#777777;">&nbsp;</span>
       Text
     </div>

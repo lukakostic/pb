@@ -16,25 +16,16 @@ function autoUI_function() {
         document.title = brdName;
     }
 }
-function fixNewListUI() {
-    let newlist = EbyId('newlist');
-    newlist.parentNode.appendChild(newlist);
+function expandInputAll() {
+    let expandoInputs = EbyClass('expandInput');
+    for (let i = 0; i < expandoInputs.length; i++)
+        expandInput(expandoInputs[i]);
 }
-function fixAlbumUI() {
-    let columnWidth = 310;
-    html.boardAlbum.style.setProperty('width', ((columnWidth * html.boardAlbum.childElementCount) + 10 + 8).toString() + 'px');
+function expandInput(el) {
+    el.style.height = '1px';
+    el.style.height = (1 + el.scrollHeight) + 'px';
+    el.parentNode.style.height = el.style.height;
 }
-function fixListUI(listEl = null) {
-    if (listEl != null) {
-        let newPanel = EbyClass('newPanel', listEl)[0];
-        newPanel.parentNode.appendChild(newPanel);
-    }
-    else {
-        let album = this.fixAlbumUI();
-        let lists = EbyClass('list', album);
-        for (let i = 0; i < lists.length; i++) {
-            if (lists[i].id == "")
-                this.fixListUI(lists[i]);
-        }
-    }
-}
+function fixNewListUI() { }
+function fixAlbumUI() { }
+function fixListUI() { }
