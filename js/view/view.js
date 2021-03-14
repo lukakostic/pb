@@ -1,4 +1,11 @@
 let view = null;
+function setView(v) {
+    view = v;
+}
+function clearView() {
+    view = null;
+    html.main.innerHTML = "";
+}
 function generateView(_id, _parentEl = null) {
     let type = pb.boards[_id].type;
     if (type == BoardType.Text || type == BoardType.Board) {
@@ -58,6 +65,7 @@ class AlbumView extends HolderView {
             this.adder = EbyName('album-adder', this.htmlEl);
             this.adder.onkeypress = this.adder_onkeypress;
         }
+        this.htmlEl.setAttribute('data-id', this.id);
         this.holderElement.innerHTML = "";
     }
     render() {
@@ -96,6 +104,7 @@ class ListView extends HolderView {
             this.adderReference = EbyName('list-adderReference', this.htmlEl);
             this.adderReference.onclick = this.adderReference_onclick;
         }
+        this.htmlEl.setAttribute('data-id', this.id);
         this.holderElement.innerHTML = "";
     }
     render() {
@@ -131,13 +140,13 @@ class TileView {
         if (this.htmlEl == null) {
             this.htmlEl = html.tileTemplate.cloneNode(true);
             this.parentEl.appendChild(this.htmlEl);
-            this.htmlEl.setAttribute('data-id', this.id);
             this.optionsBtn = EbyName('tile-optionsBtn', this.htmlEl);
             this.optionsBtn.onclick = this.optionsBtn_onclick;
             this.text = EbyName('tile-text', this.htmlEl);
             this.text.onclick = this.text_onclick;
             this.textIcon = EbyName('tile-textIcon', this.htmlEl);
         }
+        this.htmlEl.setAttribute('data-id', this.id);
     }
     render() {
         this.buildSelf();
