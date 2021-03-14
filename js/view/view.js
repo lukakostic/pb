@@ -141,7 +141,7 @@ class TileView {
     }
     render() {
         this.buildSelf();
-        this.text.innerText = pb.boards[this.id].name;
+        $(this.text).contents()[1].nodeValue = pb.boards[this.id].name;
         loadBackground(this.htmlEl, this.id);
         if (pb.boards[this.id].type == BoardType.Text && pb.boards[this.id].content.length > 0)
             this.textIcon.classList.remove('d-none');
