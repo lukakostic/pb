@@ -63,7 +63,7 @@ class AlbumView extends HolderView {
             this.parentEl.appendChild(this.htmlEl);
             this.holderElement = EbyName('album-holder', this.htmlEl);
             this.adder = EbyName('album-adder', this.htmlEl);
-            this.adder.onkeypress = this.adder_onkeypress;
+            this.adder.onkeypress = this.adder_onkeypress.bind(this);
         }
         this.htmlEl.setAttribute('data-id', this.id);
         this.holderElement.innerHTML = "";
@@ -91,18 +91,18 @@ class ListView extends HolderView {
             this.holderElement = EbyName('list-holder', this.htmlEl);
             this.header = EbyName('list-header', this.htmlEl);
             this.title = EbyName('list-title', this.htmlEl);
-            this.title.onkeypress = this.title_onkeypress;
+            this.title.onkeypress = this.title_onkeypress.bind(this);
             this.optionsBtn = EbyName('list-optionsBtn', this.htmlEl);
-            this.optionsBtn.onclick = this.optionsBtn_onclick;
+            this.optionsBtn.onclick = this.optionsBtn_onclick.bind(this);
             this.adder = EbyName('list-adder', this.htmlEl);
             this.adderText = EbyName('list-adderText', this.htmlEl);
-            this.adderText.onclick = this.adderText_onclick;
+            this.adderText.onclick = this.adderText_onclick.bind(this);
             this.adderBoard = EbyName('list-adderBoard', this.htmlEl);
-            this.adderBoard.onclick = this.adderBoard_onclick;
+            this.adderBoard.onclick = this.adderBoard_onclick.bind(this);
             this.adderList = EbyName('list-adderList', this.htmlEl);
-            this.adderList.onclick = this.adderList_onclick;
+            this.adderList.onclick = this.adderList_onclick.bind(this);
             this.adderReference = EbyName('list-adderReference', this.htmlEl);
-            this.adderReference.onclick = this.adderReference_onclick;
+            this.adderReference.onclick = this.adderReference_onclick.bind(this);
         }
         this.htmlEl.setAttribute('data-id', this.id);
         this.holderElement.innerHTML = "";
@@ -141,9 +141,9 @@ class TileView {
             this.htmlEl = html.tileTemplate.cloneNode(true);
             this.parentEl.appendChild(this.htmlEl);
             this.optionsBtn = EbyName('tile-optionsBtn', this.htmlEl);
-            this.optionsBtn.onclick = this.optionsBtn_onclick;
+            this.optionsBtn.onclick = this.optionsBtn_onclick.bind(this);
             this.text = EbyName('tile-text', this.htmlEl);
-            this.text.onclick = this.text_onclick;
+            this.text.onclick = this.text_onclick.bind(this);
             this.textIcon = EbyName('tile-textIcon', this.htmlEl);
         }
         this.htmlEl.setAttribute('data-id', this.id);
