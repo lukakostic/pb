@@ -1,3 +1,4 @@
+let EXTENSIONS_DISABLED = true;
 let extensions = {
     listeners: {
         newPage: [],
@@ -12,6 +13,8 @@ let extensions = {
         loadCached: [],
     },
     invoke(listener = "") {
+        if (EXTENSIONS_DISABLED)
+            return;
         log('Invoking listener:', listener);
         for (let i = 0; i < this.listeners[listener].length; i++)
             if (this.listeners[listener])
@@ -19,6 +22,8 @@ let extensions = {
         this.listeners[listener] = [];
     },
     execute() {
+        if (EXTENSIONS_DISABLED)
+            return;
         log('extensions.execute()');
         let exts = brdAttrOrDef(board, 'extensions', []);
         for (let i = 0; i < exts.length; i++) {

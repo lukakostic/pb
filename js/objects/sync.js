@@ -22,6 +22,7 @@ let sync = {
         }, 2000);
     },
     loadCachedContent() {
+        return false;
         let contents = window.localStorage.getItem('cached');
         if (contents == null || contents == undefined)
             return false;

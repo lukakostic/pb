@@ -1,30 +1,8 @@
 let autoUI = -1;
-let drags = {
-    dragOld: null, dragNew: null, dragItem: null, oldDragIndex: null, newDragIndex: null,
-    dragStartTime: -999
-};
 function htmlLoaded() {
-    if (autoUI == -1)
-        autoUI = setInterval(() => {
-            document.body.style.setProperty("width", "100vw");
-            if (window.innerWidth > 1250)
-                html.listAlbum.style.width = '1250px';
-            else
-                html.listAlbum.style.width = '100%';
-            if (pb != null) {
-                let brdName = pb.boards[board].name;
-                if (brdName == "")
-                    brdName = "PBoard";
-                else
-                    brdName += " - PBoard";
-                document.title = brdName;
-            }
-        }, 100);
     html.find();
-    EbyId('newlist').onsubmit = (event) => {
-        event.preventDefault();
-        newList(event);
-    };
+    if (autoUI == -1)
+        autoUI = setInterval(autoUI_function, 100);
     EbyId('homeBtn').onclick = goHome;
     EbyId('upBtn').onclick = goUp;
     EbyId('saveBtn').onclick = () => { sync.saveAll(null, true); };

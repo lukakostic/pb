@@ -1,30 +1,8 @@
-function fixNewListUI() {
-    let newlist = EbyId('newlist');
-    newlist.parentNode.appendChild(newlist);
-}
-function fixAlbumUI() {
-    let album = EbyId('boardAlbum');
-    let columnWidth = 310;
-    if (album) {
-        album.style.setProperty('width', ((columnWidth * album.childElementCount) + 10 + 8).toString() + 'px');
-        return album;
-    }
-    return null;
-}
-function fixListUI(listEl = null) {
-    if (listEl != null) {
-        let newPanel = EbyClass('newPanel', listEl)[0];
-        newPanel.parentNode.appendChild(newPanel);
-    }
-    else {
-        let album = this.fixAlbumUI();
-        let lists = EbyClass('list', album);
-        for (let i = 0; i < lists.length; i++) {
-            if (lists[i].id == "")
-                this.fixListUI(lists[i]);
-        }
-    }
-}
+let drags = {
+    dragOld: null, dragNew: null, dragItem: null,
+    oldDragIndex: -1, newDragIndex: -1,
+    dragStartTime: -999
+};
 function startSavingIndicator() {
     html.savingIndicator.style.display = 'block';
 }
@@ -40,7 +18,7 @@ function stopLoadingIndicator() {
 function expandInputAll() {
     let expandoInputs = EbyClass('expandInput');
     for (let i = 0; i < expandoInputs.length; i++)
-        this.expandInput(expandoInputs[i]);
+        expandInput(expandoInputs[i]);
 }
 function expandInput(el) {
     el.style.height = '1px';

@@ -44,29 +44,11 @@ function setCookie(name, value) {
     cookieObj[name] = value;
     setMainCookie(cookieObj);
 }
-function hash(str) {
-    let hash = 0;
-    let char = 0;
-    if (str.length == 0)
-        return hash;
-    for (let i = 0; i < str.length; i++) {
-        char = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
-    }
-    return hash;
-}
 function urlFromBoard(boardId) {
     return siteUrl + "#" + boardId;
 }
 function boardFromUrl(url) {
     return url.replace(siteUrl, '').replace('#', '');
-}
-function qSel(query, element = document) {
-    return element.querySelector(query);
-}
-function qSelAll(query, element = document) {
-    return element.querySelectorAll(query);
 }
 function findFirstBoardId(el) {
     let id = nulledGetAttribute(el, 'data-id');
@@ -105,15 +87,15 @@ function dataId(el) {
 function set_dataId(el, id) {
     el.setAttribute('data-id', id);
 }
+function set_brdAttr(id, attr, val) {
+    pb.boards[id].attributes[attr] = val;
+}
 function set_brdAttrIfNull(id, attr, val) {
     if ((attr in pb.boards[id].attributes) == false) {
         set_brdAttr(id, attr, val);
         return true;
     }
     return false;
-}
-function set_brdAttr(id, attr, val) {
-    pb.boards[id].attributes[attr] = val;
 }
 function brdAttr(id, attr) {
     return pb.boards[id].attributes[attr];
@@ -126,11 +108,28 @@ function brdAttrOrDef(id, attr, val) {
 function delBrdAttr(id, attr) {
     delete pb.boards[id].attributes[attr];
 }
+function hash(str) {
+    let hash = 0;
+    let char = 0;
+    if (str.length == 0)
+        return hash;
+    for (let i = 0; i < str.length; i++) {
+        char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+    return hash;
+}
+function qSel(query, element = document) {
+    return element.querySelector(query);
+}
+function qSelAll(query, element = document) {
+    return element.querySelectorAll(query);
+}
 function nulledGetAttribute(el, attr) {
-    let atr = null;
     if (el.hasAttribute(attr))
-        atr = el.getAttribute(attr);
-    return atr;
+        return el.getAttribute(attr);
+    return null;
 }
 function EbyId(id) {
     return document.getElementById(id);

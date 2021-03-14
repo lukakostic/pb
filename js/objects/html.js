@@ -15,11 +15,11 @@ let html = {
     boardTitle: null,
     boardDescription: null,
     find() {
-        this.textBrdTemplate = templateFChild('textBoardTemplate');
-        this.boardBrdTemplate = templateFChild('boardBoardTemplate');
-        this.listTemplate = templateFChild('listTemplate');
-        this.boardAlbum = EbyId('boardAlbum');
-        this.listAlbum = EbyId('listAlbum');
+        this.textBrdTemplate = templateFChild('text-template');
+        this.boardBrdTemplate = templateFChild('board-template');
+        this.listTemplate = templateFChild('list-template');
+        this.boardAlbum = EbyId('multi-list-board');
+        this.listAlbum = EbyId('single-list-board');
         this.mainList = EbyId('main-list');
         this.loadingIndicator = EbyId('loadingIndicator');
         this.savingIndicator = EbyId('savingIndicator');
