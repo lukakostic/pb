@@ -94,10 +94,10 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     padding-top: 50px; /* set based on headerHeight */
   }
 
-  #main div{
+  #main>*{
     width: 100%;
   }
-  .listHolder .list{
+  .listHolder>.list{
     width: 300px;
   }
   .list {
@@ -343,60 +343,6 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
  
 
-<!-- Unused, unfinished. -->
-<template id="tileHolderView-template">
-
-    <div id="listAlbum" class="d-none bg-inherit" style="padding: 5px !important; padding-top: 50px !important; background:rgba(0,0,0,0); margin: 0 auto;">
-
-      <!-- Lists Go Here -->
-
-      <div id="main-list" data-id="" class="main-list draggableList bg-inherit" style="background:rgba(0,0,0,0);">
-      
-        <div id="filler" class="title-text" value="" style="display: none;"></div> <!--Filler, to compensate for no title-->
-
-        <!-- Content -->
-
-        <!--
-        <form class="text row bg-dark" style="margin: 0px; width:100%;">
-          <textarea name="message" rows="4" cols="40"  wrap="hard" class="card-name bg-dark"
-          style="resize: none; padding-left: 5px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; text-overflow: ellipsis; color:white; border: 0px;"
-          onkeypress="expandInput(this)" oninput="expandInput(this)" onchange="expandInput(this)">Some Text Some Text Some Text Some Text Some Text Some Text Some Text</textarea>
-          
-          <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
-        </form>
-        -->
-        
-        <!-- New Text,Board,Reference buttons at list bottom template -->
-        <section id="newBoardMain" class="newPanel board" style="background-color: #555555;">
-
-          <div class="text-center justify-content-center" style="height: 100%;">
-
-            <button onclick="newText(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
-              Text
-            </button>
-
-            <button onclick="newBoard(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
-              Board
-            </button>
-
-            <button onclick="newList(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
-              List
-            </button>
-            
-            <button onclick="newReferenceBtn(event)" type="button" class="btn btn-sm btn-dark bg-inherit noborder" style="height: 100%; width:32%;">
-              Reference
-            </button>
-
-          </div>
-
-        </section>
-
-      </div>
-
-    </div>
-  </template>
-
-
 
 
 <!-- Tile Holder (list): -->
@@ -439,7 +385,6 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 </template>
 
 
-<!-- Onclick events and stuff should be added thru js. not in html. Html is just visual. -->
 
 <!-- Tiles / ContentHolders: -->
 
