@@ -149,16 +149,20 @@ class ListView extends HolderView {
     optionsBtn_onclick(event) {
     }
     adderText_onclick(event) {
-        newText(this.id, null);
+        let id = newText(this.id, null);
+        openBoard(id);
     }
     adderBoard_onclick(event) {
-        newBoard(this.id, null);
+        let id = newBoard(this.id, null);
+        openBoard(id);
     }
     adderList_onclick(event) {
         let name = window.prompt("List name?: ");
         if (name == "" || name == null)
             return;
-        newList(this.id, name);
+        let id = newList(this.id, name);
+        if (viewMode == ViewMode.List)
+            openBoard(id);
     }
     adderReference_onclick(event) {
         newReference(this.id, null);
@@ -204,14 +208,14 @@ class TileView {
     optionsBtn_onclick(event) {
     }
     text_onclick(event) {
-        boardClicked(this.id);
+        openBoard(this.id);
     }
 }
-function boardClicked(id) {
+function openBoard(id) {
     console.log("board of id: " + id + " clicked");
     if (pb.boards[id].type == BoardType.Text) {
         alert("Text!");
         return;
     }
-    set_board(this.id);
+    set_board(id);
 }
