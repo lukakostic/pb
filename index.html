@@ -113,10 +113,11 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   }
   
   .dot{
-    display:block;
-    position:relative;
-    margin-left:auto;
-    margin-bottom: -12px;
+    background-color: white;
+    border: 0px;
+    height: 15px;
+    width: 15px;
+    padding: 0;
   }
 
   [data-name="tile-text"]{
@@ -126,6 +127,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     text-overflow: ellipsis;
     color: white;
   }
+
   [data-name="list-title"]{
     width: calc(100% - 16px);
     height: 27px;
@@ -137,6 +139,9 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     color:white;
   }
 
+  [data-name="list-adder"]{
+    height: 34px;
+  }
   
   [data-name="tile-textIcon"]{
     font-size: 12px;
@@ -407,10 +412,10 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   <div data-name="list" class="list draggableList">
     
     <!-- List title -->
-    <div data-name="list-header" class="fWidth bg-inh">
+    <div data-name="list-header" class="d-flex fWidth bg-inh">
       <input data-name="list-title" type="text" class="bg-inh"></input>
 
-      <button data-name="list-optionsBtn" type="button" class="dot"></button>
+      <button data-name="list-optionsBtn" type="button" class="dot" style="flex: 1;"></button>
     </div>
 
     <!-- Tiles go here -->
@@ -421,7 +426,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
 
     <!-- New Text,Board,Reference buttons at list bottom template -->
-    <div data-name="list-adder" class="d-flex bg-inh" style="height: 34px; margin-left: 0px; margin-right: 0px;">
+    <div data-name="list-adder" class="d-flex bg-inh">
       <button data-name="list-adder-text" type="button" class="b">
         Text
       </button>
