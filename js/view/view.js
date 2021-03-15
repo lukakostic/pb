@@ -26,7 +26,7 @@ function generateView(_id, _parentEl) {
         return new AlbumView(_id, _parentEl);
     }
     else if (viewMode == ViewMode.Board) {
-        if (type == BoardType.List && _parentEl != mainView.htmlEl)
+        if (type == BoardType.List && _parentEl != mainView.holderElement)
             return new ListView(_id, _parentEl);
         return new TileView(_id, _parentEl);
     }
