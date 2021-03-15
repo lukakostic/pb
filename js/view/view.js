@@ -69,6 +69,7 @@ class AlbumView extends HolderView {
         }
         this.htmlEl.setAttribute('data-id', this.id);
         this.holderElement.innerHTML = "";
+        super.buildSelf();
     }
     render() {
         this.buildSelf();
