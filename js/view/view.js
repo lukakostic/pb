@@ -36,7 +36,7 @@ class HolderView {
         for (let i = 0; i < pb.boards[this.id].content.length; i++) {
             let brdId = pb.boards[this.id].content[i];
             if (this.elements[i] == undefined)
-                this.elements[i] = generateView(pb.boards[this.id].content[i], this.htmlEl);
+                this.elements[i] = generateView(pb.boards[this.id].content[i], this.holderElement);
             else
                 this.elements[i].id = pb.boards[this.id].content[i];
         }
