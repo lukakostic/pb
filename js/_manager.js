@@ -2,7 +2,7 @@ let siteUrl = "https://lukakostic.github.io/pb/";
 let pb = null;
 let board = "";
 let currentVersion = 3.1;
-let currentMinorVersion = 5;
+let currentMinorVersion = 6;
 window.onhashchange = function () {
     set_board(boardFromUrl(url()));
 };
@@ -46,4 +46,25 @@ function loadPBoard(content, checkTime = true) {
     pb = saveFile.pb;
     draw();
     return true;
+}
+function set_brdAttr(id, attr, val) {
+    pb.boards[id].attributes[attr] = val;
+}
+function set_brdAttrIfNull(id, attr, val) {
+    if ((attr in pb.boards[id].attributes) == false) {
+        set_brdAttr(id, attr, val);
+        return true;
+    }
+    return false;
+}
+function brdAttr(id, attr) {
+    return pb.boards[id].attributes[attr];
+}
+function brdAttrOrDef(id, attr, val) {
+    if (attr in pb.boards[id].attributes)
+        return brdAttr(id, attr);
+    return val;
+}
+function delBrdAttr(id, attr) {
+    delete pb.boards[id].attributes[attr];
 }

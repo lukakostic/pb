@@ -50,64 +50,6 @@ function urlFromBoard(boardId) {
 function boardFromUrl(url) {
     return url.replace(siteUrl, '').replace('#', '');
 }
-function findFirstBoardId(el) {
-    let id = nulledGetAttribute(el, 'data-id');
-    if (id != null)
-        return id;
-    if (el.parentNode == null)
-        return null;
-    return findFirstBoardId(el.parentNode);
-}
-function parentElementBoard(el, state = -1) {
-    if (state == -1) {
-        let id = nulledGetAttribute(el, 'data-id');
-        if (id == null) {
-            if (el.parentNode == null)
-                return null;
-            return parentElementBoard(el.parentNode);
-        }
-        else if (id == "") {
-            alert('empty attribute');
-            return null;
-        }
-        else {
-            state = pb.boards[id].type;
-        }
-    }
-    if (state == 1 || state == 2)
-        return dataId(el.parentNode);
-    else if (state == 3)
-        return board;
-    log('unknown board type');
-    return null;
-}
-function dataId(el) {
-    return el.getAttribute('data-id');
-}
-function set_dataId(el, id) {
-    el.setAttribute('data-id', id);
-}
-function set_brdAttr(id, attr, val) {
-    pb.boards[id].attributes[attr] = val;
-}
-function set_brdAttrIfNull(id, attr, val) {
-    if ((attr in pb.boards[id].attributes) == false) {
-        set_brdAttr(id, attr, val);
-        return true;
-    }
-    return false;
-}
-function brdAttr(id, attr) {
-    return pb.boards[id].attributes[attr];
-}
-function brdAttrOrDef(id, attr, val) {
-    if (attr in pb.boards[id].attributes)
-        return brdAttr(id, attr);
-    return val;
-}
-function delBrdAttr(id, attr) {
-    delete pb.boards[id].attributes[attr];
-}
 function hash(str) {
     let hash = 0;
     let char = 0;
