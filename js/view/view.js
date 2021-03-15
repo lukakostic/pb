@@ -8,11 +8,11 @@ function setMainView(v) {
     mainView = v;
     if (pb.boards[mainView.id].type == BoardType.List) {
         viewMode = ViewMode.List;
-        mainView.htmlEl.id = "ViewModeList";
+        html.main.setAttribute('data-view', "ViewModeList");
     }
     else {
         viewMode = ViewMode.Board;
-        mainView.htmlEl.id = "ViewModeBoard";
+        html.main.setAttribute('data-view', "ViewModeBoard");
     }
 }
 function clearMainView() {
