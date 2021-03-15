@@ -6,7 +6,7 @@ function clearMainView() {
     mainView = null;
     html.main.innerHTML = "";
 }
-function generateView(_id, _parentEl = null) {
+function generateView(_id, _parentEl) {
     let type = pb.boards[_id].type;
     if (type == BoardType.Text || type == BoardType.Board) {
         return new TileView(_id, _parentEl);

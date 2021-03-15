@@ -2,7 +2,7 @@ let siteUrl = "https://lukakostic.github.io/pb/";
 let pb = null;
 let board = "";
 let currentVersion = 3.1;
-console.log(currentVersion + " : i hope holdView works");
+console.log(currentVersion, " : ", 'list has no parent??');
 window.onhashchange = function () {
     set_board(boardFromUrl(url()));
 };
