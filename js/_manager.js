@@ -2,7 +2,7 @@ let siteUrl = "https://lukakostic.github.io/pb/";
 let pb = null;
 let board = "";
 let currentVersion = 3.1;
-console.log(currentVersion, " : ", 'force parents on view constructors');
+console.log(currentVersion, " : ", 'list adder names');
 window.onhashchange = function () {
     set_board(boardFromUrl(url()));
 };

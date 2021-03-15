@@ -97,13 +97,13 @@ class ListView extends HolderView {
             this.optionsBtn = EbyName('list-optionsBtn', this.htmlEl);
             this.optionsBtn.onclick = this.optionsBtn_onclick.bind(this);
             this.adder = EbyName('list-adder', this.htmlEl);
-            this.adderText = EbyName('list-adderText', this.htmlEl);
+            this.adderText = EbyName('list-adder-text', this.htmlEl);
             this.adderText.onclick = this.adderText_onclick.bind(this);
-            this.adderBoard = EbyName('list-adderBoard', this.htmlEl);
+            this.adderBoard = EbyName('list-adder-board', this.htmlEl);
             this.adderBoard.onclick = this.adderBoard_onclick.bind(this);
-            this.adderList = EbyName('list-adderList', this.htmlEl);
+            this.adderList = EbyName('list-adder-list', this.htmlEl);
             this.adderList.onclick = this.adderList_onclick.bind(this);
-            this.adderReference = EbyName('list-adderReference', this.htmlEl);
+            this.adderReference = EbyName('list-adder-reference', this.htmlEl);
             this.adderReference.onclick = this.adderReference_onclick.bind(this);
         }
         this.htmlEl.setAttribute('data-id', this.id);
