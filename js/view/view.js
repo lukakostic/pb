@@ -21,9 +21,9 @@ function generateView(_id, _parentEl) {
     if (_parentEl == html.main) {
         if (type == BoardType.List)
             return new ListView(_id, _parentEl);
-        if (type == BoardType.PBoard)
-            return new AlbumView(_id, _parentEl);
-        return new TileView(_id, _parentEl);
+        if (type == BoardType.Text)
+            throw "Trying to open text fullscreen";
+        return new AlbumView(_id, _parentEl);
     }
     else if (viewMode == ViewMode.Board) {
         if (type == BoardType.List)
