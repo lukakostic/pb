@@ -48,10 +48,10 @@ class HolderView {
     generateElements() {
         if (pb.boards[this.id].type == BoardType.Text)
             throw 'HolderView used for text';
-        this.elements.length = pb.boards[this.id].content.length;
-        for (let i = 0; i < pb.boards[this.id].content.length; i++) {
-            let brdId = pb.boards[this.id].content[i];
-            if (this.elements[i] == undefined)
+        let len = pb.boards[this.id].content.length;
+        this.elements.length = len;
+        for (let i = 0; i < len; i++) {
+            if (this.elements[i] == undefined || this.elements[i] == null)
                 this.elements[i] = generateView(pb.boards[this.id].content[i], this.holderElement);
             else
                 this.elements[i].id = pb.boards[this.id].content[i];
