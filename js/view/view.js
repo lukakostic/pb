@@ -204,16 +204,14 @@ class TileView {
     optionsBtn_onclick(event) {
     }
     text_onclick(event) {
-        tileClicked(this);
+        boardClicked(this.id);
     }
 }
 function boardClicked(id) {
+    console.log("board of id: " + id + " clicked");
     if (pb.boards[id].type == BoardType.Text) {
         alert("Text!");
         return;
     }
     set_board(this.id);
-}
-function tileClicked(tile) {
-    boardClicked(tile.id);
 }
