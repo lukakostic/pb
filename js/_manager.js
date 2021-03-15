@@ -2,7 +2,7 @@ let siteUrl = "https://lukakostic.github.io/pb/";
 let pb = null;
 let board = "";
 let currentVersion = 3.1;
-console.log(currentVersion, " : ", 'list adder names');
+console.log(currentVersion, " : ", 'wrong html element');
 window.onhashchange = function () {
     set_board(boardFromUrl(url()));
 };
