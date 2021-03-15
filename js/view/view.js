@@ -121,8 +121,10 @@ class ListView extends HolderView {
     optionsBtn_onclick(event) {
     }
     adderText_onclick(event) {
+        newText(this.id, null);
     }
     adderBoard_onclick(event) {
+        newBoard(this.id, null);
     }
     adderList_onclick(event) {
         let name = window.prompt("List name?: ");
@@ -131,6 +133,7 @@ class ListView extends HolderView {
         newList(this.id, name);
     }
     adderReference_onclick(event) {
+        newReference(this.id, null);
     }
 }
 class TileView {

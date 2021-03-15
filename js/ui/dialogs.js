@@ -24,26 +24,3 @@ function listTitleBlur(event) {
     let titleText = event.srcElement;
     log('Title blur');
 }
-function newReferenceBtn(event) {
-    let refer = window.prompt("Write/Paste id of board to reference:");
-    if (refer == null)
-        return;
-    if (pb.boards[refer] == null) {
-        alert("ID doesn't exist :(");
-        return;
-    }
-    if (pb.boards[refer].type == BoardType.List) {
-        alert("Cant embed lists into boards.");
-        return;
-    }
-    if (event.srcElement == null)
-        event.srcElement = event.target;
-    let lst = event.srcElement.parentNode.parentNode.parentNode;
-    let lstId = dataId(lst);
-    pb.boards[lstId].content.push(refer);
-    clearBoards(lst);
-    loadList(lst, lstId);
-    pb.boards[refer].attributes['references']++;
-    hideOptionsDialog();
-    sync.saveAll();
-}
