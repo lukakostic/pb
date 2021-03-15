@@ -2,7 +2,7 @@ let siteUrl = "https://lukakostic.github.io/pb/";
 let pb = null;
 let board = "";
 let currentVersion = 3.1;
-let currentMinorVersion = 3;
+let currentMinorVersion = 5;
 window.onhashchange = function () {
     set_board(boardFromUrl(url()));
 };

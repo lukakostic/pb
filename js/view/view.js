@@ -1,9 +1,9 @@
-let view = null;
-function setView(v) {
-    view = v;
+let mainView = null;
+function setMainView(v) {
+    mainView = v;
 }
-function clearView() {
-    view = null;
+function clearMainView() {
+    mainView = null;
     html.main.innerHTML = "";
 }
 function generateView(_id, _parentEl = null) {
@@ -26,6 +26,8 @@ class HolderView {
         this.htmlEl = null;
         this.holderElement = null;
         this.elements = [];
+        if (this.parentEl == html.main)
+            setMainView(this);
     }
     generateElements() {
         if (pb.boards[this.id].type != BoardType.List || pb.boards[this.id].type != BoardType.PBoard)
@@ -74,8 +76,8 @@ class AlbumView extends HolderView {
     }
     adder_onkeypress(event) {
         if (event.key === 'Enter') {
-            event.preventDefault();
-            alert(this.adder.value);
+            newList(this.id, this.adder.value);
+            this.adder.value = "";
         }
     }
 }
@@ -122,6 +124,10 @@ class ListView extends HolderView {
     adderBoard_onclick(event) {
     }
     adderList_onclick(event) {
+        let name = window.prompt("List name?: ");
+        if (name == "" || name == null)
+            return;
+        newList(this.id, name);
     }
     adderReference_onclick(event) {
     }
