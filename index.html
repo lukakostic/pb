@@ -176,7 +176,6 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
     font-weight: bolder;
     color:black;
-    background-color: #efefef;
     border: 0px;
   }
 
@@ -196,7 +195,6 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     text-overflow: ellipsis;
 
     border-radius: 5px;
-    color: white;
   }
   
   [data-name="tile-textIcon"]{
@@ -402,7 +400,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
 
     <input data-name="album-adder" type="text" onblur="this.value = ''"
-    class="list bgDark cWhite fWidth" style="height: 30px;" placeholder="Add a new list..."></input>
+    class="list bgDark fWidth" placeholder="Add a new list..."></input>
 
   </div>
 </template>
@@ -418,7 +416,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     
     <!-- List title -->
     <div data-name="list-header" class="d-flex fWidth bg-inh" style="position: /*Needed because .dot is absolute*/ relative;">
-      <input data-name="list-title" type="text" class="bg-inh fWidth"></input>
+      <input data-name="list-title" type="text" class="bgDark fWidth"></input>
 
       <button data-name="list-optionsBtn" type="button" class="dot"></button>
     </div>
