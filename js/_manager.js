@@ -2,7 +2,7 @@ let siteUrl = "https://lukakostic.github.io/pb/";
 let pb = null;
 let board = "";
 let currentVersion = 3.1;
-console.log(currentVersion, " : ", 'View Modes');
+console.log(currentVersion, " : ", 'Open dialogs :D');
 window.onhashchange = function () {
     set_board(boardFromUrl(url()));
 };
@@ -44,7 +44,7 @@ function loadPBoard(content, checkTime = true) {
     sync.flashLoadingIndicator();
     sync.lastSyncTime = saveFile.syncTime;
     pb = saveFile.pb;
-    draw();
+    pageOpened();
     return true;
 }
 function set_brdAttr(id, attr, val) {

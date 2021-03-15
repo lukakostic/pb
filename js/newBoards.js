@@ -6,6 +6,7 @@ function newText(parentId, name = null) {
     pb.boards[parentId].content.push(brd.id);
     mainView.render();
     sync.saveAll();
+    return brd.id;
 }
 function newBoard(parentId, name = null) {
     if (name == null)
@@ -16,6 +17,7 @@ function newBoard(parentId, name = null) {
     pb.boards[parentId].content.push(brd.id);
     mainView.render();
     sync.saveAll();
+    return brd.id;
 }
 function newList(parentId, name = null) {
     if (name == null)
@@ -25,19 +27,21 @@ function newList(parentId, name = null) {
     pb.boards[parentId].content.push(brd.id);
     mainView.render();
     sync.saveAll();
+    return brd.id;
 }
 function newReference(parentId, id = null) {
     if (id == null) {
         id = window.prompt("Write/Paste id of board to reference:");
         if (id == null)
-            return;
+            return null;
         if (pb.boards[id] == null) {
             alert("ID doesn't exist :(");
-            return;
+            return null;
         }
     }
     pb.boards[parentId].content.push(id);
     pb.boards[id].attributes['references']++;
     mainView.render();
     sync.saveAll();
+    return id;
 }

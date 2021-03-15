@@ -204,5 +204,13 @@ class TileView {
     optionsBtn_onclick(event) {
     }
     text_onclick(event) {
+        tileClicked(this);
     }
+}
+function boardClicked(id) {
+    alert("Text!");
+    set_board(this.id);
+}
+function tileClicked(tile) {
+    boardClicked(tile.id);
 }

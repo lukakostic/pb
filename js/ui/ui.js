@@ -28,22 +28,14 @@ function htmlLoaded() {
 function pageOpened() {
     log("pageOpened()");
     extensions.invoke('pre_newPage');
-    draw();
+    html.main.innerHTML = "";
+    setMainView(generateView(board, html.main));
+    mainView.render();
     extensions.invoke('newPage');
     extensions.execute();
 }
 function clearBoards(no, nope, nopp, never) { }
 function clearLists(no, nope, nopp, never) { }
-function draw() {
-    log('draw()');
-    setMainView(generateView("", html.main));
-    mainView.render();
-    return;
-    loadBoardBackgroundImage();
-    makeDraggable();
-    setTimeout(() => { expandInputAll(); }, 200);
-    setTimeout(() => { expandInputAll(); }, 1000);
-}
 function drawBoardAlbum(no, nope, nopp, never) { }
 function drawListAlbum(no, nope, nopp, never) { }
 function loadBackground(brdEl, id) {
