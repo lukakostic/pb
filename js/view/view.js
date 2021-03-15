@@ -60,6 +60,8 @@ class AlbumView extends HolderView {
         super(_id, _parentEl);
     }
     buildSelf() {
+        if (this.htmlEl != null && this.htmlEl.parentElement == null)
+            this.htmlEl = null;
         if (this.htmlEl == null) {
             this.htmlEl = html.albumTemplate.cloneNode(true);
             this.parentEl.appendChild(this.htmlEl);
@@ -87,6 +89,8 @@ class ListView extends HolderView {
         super(_id, _parentEl);
     }
     buildSelf() {
+        if (this.htmlEl != null && this.htmlEl.parentElement == null)
+            this.htmlEl = null;
         if (this.htmlEl == null) {
             this.htmlEl = html.list2Template.cloneNode(true);
             this.parentEl.appendChild(this.htmlEl);
@@ -147,6 +151,8 @@ class TileView {
         this.textIcon = null;
     }
     buildSelf() {
+        if (this.htmlEl != null && this.htmlEl.parentElement == null)
+            this.htmlEl = null;
         if (this.htmlEl == null) {
             this.htmlEl = html.tileTemplate.cloneNode(true);
             this.parentEl.appendChild(this.htmlEl);
