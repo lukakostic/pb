@@ -6,10 +6,14 @@ let mainView = null;
 let viewMode = ViewMode.List;
 function setMainView(v) {
     mainView = v;
-    if (pb.boards[v.id].type == BoardType.List)
+    if (pb.boards[mainView.id].type == BoardType.List) {
         viewMode = ViewMode.List;
-    else
+        mainView.htmlEl.id = "ViewModeList";
+    }
+    else {
         viewMode = ViewMode.Board;
+        mainView.htmlEl.id = "ViewModeBoard";
+    }
 }
 function clearMainView() {
     mainView = null;
