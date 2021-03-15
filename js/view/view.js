@@ -87,7 +87,6 @@ class ListView extends HolderView {
         super(_id, _parentEl);
     }
     buildSelf() {
-        super.buildSelf();
         if (this.htmlEl == null) {
             this.htmlEl = html.list2Template.cloneNode(true);
             this.parentEl.appendChild(this.htmlEl);
@@ -109,6 +108,7 @@ class ListView extends HolderView {
         }
         this.htmlEl.setAttribute('data-id', this.id);
         this.holderElement.innerHTML = "";
+        super.buildSelf();
     }
     render() {
         this.buildSelf();
