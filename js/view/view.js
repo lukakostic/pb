@@ -1,21 +1,37 @@
+const ViewMode = {
+    List: 0,
+    Board: 1
+};
 let mainView = null;
+let viewMode = ViewMode.List;
 function setMainView(v) {
     mainView = v;
+    if (pb.boards[v.id].type == BoardType.List)
+        viewMode = ViewMode.List;
+    else
+        viewMode = ViewMode.Board;
 }
 function clearMainView() {
     mainView = null;
     html.main.innerHTML = "";
+    viewMode = ViewMode.List;
 }
 function generateView(_id, _parentEl) {
     let type = pb.boards[_id].type;
-    if (type == BoardType.Text || type == BoardType.Board) {
+    if (_parentEl == html.main) {
+        if (type == BoardType.List)
+            return new ListView(_id, _parentEl);
+        if (type == BoardType.PBoard)
+            return new AlbumView(_id, _parentEl);
         return new TileView(_id, _parentEl);
     }
-    if (type == BoardType.List) {
-        return new ListView(_id, _parentEl);
+    else if (viewMode == ViewMode.Board) {
+        if (type == BoardType.List)
+            return new ListView(_id, _parentEl);
+        return new TileView(_id, _parentEl);
     }
-    if (type == BoardType.PBoard) {
-        return new AlbumView(_id, _parentEl);
+    else if (viewMode == ViewMode.List) {
+        return new TileView(_id, _parentEl);
     }
     return null;
 }
@@ -117,6 +133,7 @@ class ListView extends HolderView {
     }
     render() {
         this.buildSelf();
+        this.title.value = pb.boards[this.id].name;
         super.render();
     }
     title_onkeypress(event) {
@@ -152,7 +169,6 @@ class TileView {
         this.id = _id;
         this.parentEl = _parentEl;
         this.htmlEl = null;
-        this.tileType = pb.boards[_id].type;
         this.optionsBtn = null;
         this.text = null;
         this.textIcon = null;
@@ -174,6 +190,7 @@ class TileView {
     render() {
         this.buildSelf();
         this.text.childNodes[2].nodeValue = pb.boards[this.id].name;
+        this.htmlEl.setAttribute('data-type', BoardTypeName(pb.boards[this.id].type));
         loadBackground(this.htmlEl, this.id);
         if (pb.boards[this.id].type == BoardType.Text && pb.boards[this.id].content.length > 0)
             this.textIcon.classList.remove('d-none');

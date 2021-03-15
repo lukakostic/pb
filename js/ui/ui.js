@@ -36,10 +36,7 @@ function clearBoards(no, nope, nopp, never) { }
 function clearLists(no, nope, nopp, never) { }
 function draw() {
     log('draw()');
-    if (pb.boards[board].type == BoardType.Board)
-        setMainView(new AlbumView("", html.main));
-    else if (pb.boards[board].type == BoardType.List)
-        setMainView(new ListView("", html.main));
+    setMainView(generateView("", html.main));
     mainView.render();
     return;
     loadBoardBackgroundImage();

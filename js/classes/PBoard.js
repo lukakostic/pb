@@ -18,6 +18,12 @@ const BoardType = {
     List: 3,
     PBoard: 4
 };
+function BoardTypeName(val) {
+    for (let k in BoardType)
+        if (BoardType[k] == val)
+            return k;
+    return null;
+}
 class Board {
     constructor(type, name, content, attributes = {}, id = null) {
         if (id === null)
