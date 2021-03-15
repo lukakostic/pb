@@ -94,8 +94,13 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     padding-top: 50px; /* set based on headerHeight */
   }
 
-  .list {
+  #main div{
+    width: 100%;
+  }
+  .listHolder .list{
     width: 300px;
+  }
+  .list {
     background-color: #555555;
     flex: 0 0 auto; /*dont shrink or expand*/
   }
@@ -311,10 +316,10 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
 <template id="album-template">
    <!-- List View -->
-  <div data-name="album" class="album d-flex bg-inh draggableAlbum">
+  <div data-name="album" class="album listHolder d-flex bg-inh draggableAlbum">
 
     <!-- Contents go here -->
-    <div data-name="album-holder">
+    <div data-name="album-holder" class="listHolder">
 
     </div>
 

@@ -36,11 +36,12 @@ function clearBoards(no, nope, nopp, never) { }
 function clearLists(no, nope, nopp, never) { }
 function draw() {
     log('draw()');
-    return;
     if (pb.boards[board].type == BoardType.Board)
-        drawBoardAlbum();
+        setMainView(new AlbumView("", html.main));
     else if (pb.boards[board].type == BoardType.List)
-        drawListAlbum();
+        setMainView(new ListView("", html.main));
+    mainView.render();
+    return;
     loadBoardBackgroundImage();
     makeDraggable();
     setTimeout(() => { expandInputAll(); }, 200);
