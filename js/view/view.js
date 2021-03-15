@@ -164,8 +164,7 @@ class ListView extends HolderView {
         if (name == "" || name == null)
             return;
         let id = newList(this.id, name);
-        if (viewMode == ViewMode.List)
-            openBoard(id);
+        openBoard(id);
     }
     adderReference_onclick(event) {
         newReference(this.id, null);
