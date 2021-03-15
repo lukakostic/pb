@@ -2,7 +2,7 @@ let siteUrl = "https://lukakostic.github.io/pb/";
 let pb = null;
 let board = "";
 let currentVersion = 3.1;
-console.log(currentVersion, " : ", 'Dialog clicks');
+console.log(currentVersion, " : ", 'Url?');
 window.onhashchange = function () {
     set_board(boardFromUrl(url()));
 };

@@ -47,8 +47,8 @@ function setCookie(name, value) {
 function urlFromBoard(boardId) {
     return siteUrl + "#" + boardId;
 }
-function boardFromUrl(url) {
-    return url.replace(siteUrl, '').replace('#', '');
+function boardFromUrl(_url) {
+    return _url.replace(siteUrl, '').replace('#', '');
 }
 function hash(str) {
     let hash = 0;

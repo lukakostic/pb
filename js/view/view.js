@@ -208,7 +208,10 @@ class TileView {
     }
 }
 function boardClicked(id) {
-    alert("Text!");
+    if (pb.boards[id].type == BoardType.Text) {
+        alert("Text!");
+        return;
+    }
     set_board(this.id);
 }
 function tileClicked(tile) {
