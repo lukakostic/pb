@@ -78,10 +78,10 @@ class AlbumView extends HolderView {
         super.render();
     }
     adder_onkeypress(event) {
-        if (event.key === 'Enter') {
-            newList(this.id, this.adder.value);
-            this.adder.value = "";
-        }
+        if (event.key !== 'Enter')
+            return;
+        newList(this.id, this.adder.value);
+        this.adder.value = "";
     }
 }
 class ListView extends HolderView {
@@ -98,6 +98,7 @@ class ListView extends HolderView {
             this.header = EbyName('list-header', this.htmlEl);
             this.title = EbyName('list-title', this.htmlEl);
             this.title.onkeypress = this.title_onkeypress.bind(this);
+            this.title.onblur = this.title_onblur.bind(this);
             this.optionsBtn = EbyName('list-optionsBtn', this.htmlEl);
             this.optionsBtn.onclick = this.optionsBtn_onclick.bind(this);
             this.adder = EbyName('list-adder', this.htmlEl);
@@ -119,8 +120,14 @@ class ListView extends HolderView {
         super.render();
     }
     title_onkeypress(event) {
-        alert(this.id);
-        alert(this.title.outerHTML);
+        if (event.key !== 'Enter')
+            return;
+        pb.boards[this.id].name = this.title.value;
+        mainView.render();
+        sync.saveAll();
+    }
+    title_onblur(event) {
+        this.title.value = pb.boards[this.id].name;
     }
     optionsBtn_onclick(event) {
     }

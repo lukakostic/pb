@@ -12,7 +12,7 @@
     </div>
 
 
-    <input data-name="album-adder" type="text" onfocusout="this.value = ''"
+    <input data-name="album-adder" type="text" onblur="this.value = ''"
     class="list bgDark cWhite fWidth" placeholder="Add a new list..."></input>
 
   </div>
@@ -82,10 +82,10 @@
   <div data-name="list" class="list draggableList">
     
     <!-- List title -->
-    <div data-name="list-header" class="d-flex fWidth bg-inh">
-      <input data-name="list-title" type="text" class="bg-inh"></input>
+    <div data-name="list-header" class="d-flex fWidth bg-inh" style="position: /*Needed because .dot is absolute*/ relative;">
+      <input data-name="list-title" type="text" class="bg-inh fWidth"></input>
 
-      <button data-name="list-optionsBtn" type="button" class="dot" style="flex: 1;"></button>
+      <button data-name="list-optionsBtn" type="button" class="dot"></button>
     </div>
 
     <!-- Tiles go here -->
@@ -121,7 +121,7 @@
 <!-- Tiles / ContentHolders: -->
 
 <template id="tile-template">
-  <section data-name="tile" class="tile draggable">
+  <section data-name="tile" class="tile draggable" style="position: /*Needed because .dot is absolute*/ relative;">
 
     <button data-name="tile-optionsBtn" class="dot"></button>
 

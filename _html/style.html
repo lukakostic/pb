@@ -16,8 +16,9 @@
   }
 
   .tile{
+    min-width: 250px;
     max-width: 400px;
-    height: 300px;
+    height: 150px;
     flex: 0 0 auto; /*dont shrink or expand*/
     background-color: #444444;
   }
@@ -28,6 +29,12 @@
     height: 15px;
     width: 15px;
     padding: 0;
+
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+
   }
 
   [data-name="tile-text"]{
@@ -39,7 +46,6 @@
   }
 
   [data-name="list-title"]{
-    width: calc(100% - 16px);
     height: 27px;
     padding: 2px 2px 0px 5px;
     white-space: nowrap;

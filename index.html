@@ -106,8 +106,9 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   }
 
   .tile{
+    min-width: 250px;
     max-width: 400px;
-    height: 300px;
+    height: 150px;
     flex: 0 0 auto; /*dont shrink or expand*/
     background-color: #444444;
   }
@@ -118,6 +119,12 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     height: 15px;
     width: 15px;
     padding: 0;
+
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+
   }
 
   [data-name="tile-text"]{
@@ -129,7 +136,6 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   }
 
   [data-name="list-title"]{
-    width: calc(100% - 16px);
     height: 27px;
     padding: 2px 2px 0px 5px;
     white-space: nowrap;
@@ -342,7 +348,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     </div>
 
 
-    <input data-name="album-adder" type="text" onfocusout="this.value = ''"
+    <input data-name="album-adder" type="text" onblur="this.value = ''"
     class="list bgDark cWhite fWidth" placeholder="Add a new list..."></input>
 
   </div>
@@ -412,10 +418,10 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   <div data-name="list" class="list draggableList">
     
     <!-- List title -->
-    <div data-name="list-header" class="d-flex fWidth bg-inh">
-      <input data-name="list-title" type="text" class="bg-inh"></input>
+    <div data-name="list-header" class="d-flex fWidth bg-inh" style="position: /*Needed because .dot is absolute*/ relative;">
+      <input data-name="list-title" type="text" class="bg-inh fWidth"></input>
 
-      <button data-name="list-optionsBtn" type="button" class="dot" style="flex: 1;"></button>
+      <button data-name="list-optionsBtn" type="button" class="dot"></button>
     </div>
 
     <!-- Tiles go here -->
@@ -451,7 +457,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 <!-- Tiles / ContentHolders: -->
 
 <template id="tile-template">
-  <section data-name="tile" class="tile draggable">
+  <section data-name="tile" class="tile draggable" style="position: /*Needed because .dot is absolute*/ relative;">
 
     <button data-name="tile-optionsBtn" class="dot"></button>
 
