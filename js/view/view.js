@@ -26,7 +26,7 @@ function generateView(_id, _parentEl) {
         return new AlbumView(_id, _parentEl);
     }
     else if (viewMode == ViewMode.Board) {
-        if (type == BoardType.List)
+        if (type == BoardType.List && _parentEl != mainView.htmlEl)
             return new ListView(_id, _parentEl);
         return new TileView(_id, _parentEl);
     }
@@ -133,6 +133,9 @@ class ListView extends HolderView {
     }
     render() {
         this.buildSelf();
+        if (mainView == this) {
+            this.header.classList.add('hidden');
+        }
         this.title.value = pb.boards[this.id].name;
         super.render();
     }
