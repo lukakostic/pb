@@ -4,7 +4,7 @@ function newText(parentId, name = null) {
     let brd = new Board(BoardType.Text, name, "", { references: 1 });
     pb.boards[brd.id] = brd;
     pb.boards[parentId].content.push(brd.id);
-    mainView.render();
+    pageOpened();
     sync.saveAll();
     return brd.id;
 }
@@ -15,7 +15,7 @@ function newBoard(parentId, name = null) {
     let brd = new Board(BoardType.Board, name, [], atr);
     pb.boards[brd.id] = brd;
     pb.boards[parentId].content.push(brd.id);
-    mainView.render();
+    pageOpened();
     sync.saveAll();
     return brd.id;
 }
@@ -25,7 +25,7 @@ function newList(parentId, name = null) {
     let brd = new Board(BoardType.List, name, [], { references: 1 });
     pb.boards[brd.id] = brd;
     pb.boards[parentId].content.push(brd.id);
-    mainView.render();
+    pageOpened();
     sync.saveAll();
     return brd.id;
 }
@@ -41,7 +41,7 @@ function newReference(parentId, id = null) {
     }
     pb.boards[parentId].content.push(id);
     pb.boards[id].attributes['references']++;
-    mainView.render();
+    pageOpened();
     sync.saveAll();
     return id;
 }

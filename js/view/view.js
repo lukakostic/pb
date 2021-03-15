@@ -140,7 +140,7 @@ class ListView extends HolderView {
         if (event.key !== 'Enter')
             return;
         pb.boards[this.id].name = this.title.value;
-        mainView.render();
+        pageOpened();
         sync.saveAll();
     }
     title_onblur(event) {

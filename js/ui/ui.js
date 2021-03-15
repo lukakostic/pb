@@ -30,7 +30,7 @@ function pageOpened() {
     extensions.invoke('pre_newPage');
     html.main.innerHTML = "";
     setMainView(generateView(board, html.main));
-    mainView.render();
+    pageOpened();
     extensions.invoke('newPage');
     extensions.execute();
 }
