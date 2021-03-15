@@ -20,7 +20,7 @@ function generateView(_id, _parentEl) {
     return null;
 }
 class HolderView {
-    constructor(_id = "", _parentEl = null) {
+    constructor(_id = "", _parentEl) {
         this.id = _id;
         this.parentEl = _parentEl;
         this.htmlEl = null;
@@ -36,7 +36,7 @@ class HolderView {
         for (let i = 0; i < pb.boards[this.id].content.length; i++) {
             let brdId = pb.boards[this.id].content[i];
             if (this.elements[i] == undefined)
-                this.elements[i] = generateView(pb.boards[this.id].content[i]);
+                this.elements[i] = generateView(pb.boards[this.id].content[i], this.parentEl);
             else
                 this.elements[i].id = pb.boards[this.id].content[i];
         }
@@ -56,7 +56,7 @@ class HolderView {
     }
 }
 class AlbumView extends HolderView {
-    constructor(_id = "", _parentEl = null) {
+    constructor(_id = "", _parentEl) {
         super(_id, _parentEl);
     }
     buildSelf() {
@@ -83,7 +83,7 @@ class AlbumView extends HolderView {
     }
 }
 class ListView extends HolderView {
-    constructor(_id = "", _parentEl = null) {
+    constructor(_id = "", _parentEl) {
         super(_id, _parentEl);
     }
     buildSelf() {
@@ -134,7 +134,7 @@ class ListView extends HolderView {
     }
 }
 class TileView {
-    constructor(_id = "", _parentEl = null) {
+    constructor(_id = "", _parentEl) {
         this.id = _id;
         this.parentEl = _parentEl;
         this.htmlEl = null;
