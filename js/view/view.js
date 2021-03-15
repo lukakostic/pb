@@ -160,7 +160,10 @@ class ListView extends HolderView {
         openBoard(id);
     }
     adderBoard_onclick(event) {
-        let id = newBoard(this.id, null);
+        let name = window.prompt("Board name?: ");
+        if (name == "" || name == null)
+            return;
+        let id = newBoard(this.id, name);
         openBoard(id);
     }
     adderList_onclick(event) {
@@ -218,7 +221,6 @@ class TileView {
     }
 }
 function openBoard(id) {
-    console.log("board of id: " + id + " clicked");
     if (pb.boards[id].type == BoardType.Text) {
         alert("Text!");
         return;

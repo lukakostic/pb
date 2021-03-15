@@ -1,8 +1,12 @@
 let siteUrl = "https://lukakostic.github.io/pb/";
+if (url().includes("file:///")) {
+    window.location.hash = "";
+    siteUrl = url();
+}
 let pb = null;
 let board = "";
 let currentVersion = 3.1;
-console.log(currentVersion, " : ", 'AAAAAA');
+console.log(currentVersion, " : ", 'Dialogs');
 window.onhashchange = function () {
     set_board(boardFromUrl(url()));
 };
