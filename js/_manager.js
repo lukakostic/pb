@@ -2,7 +2,7 @@ let siteUrl = "https://lukakostic.github.io/pb/";
 let pb = null;
 let board = "";
 let currentVersion = 3.1;
-let currentMinorVersion = 8;
+console.log(currentVersion + " : i hope holdView works");
 window.onhashchange = function () {
     set_board(boardFromUrl(url()));
 };

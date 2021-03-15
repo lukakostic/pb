@@ -30,7 +30,7 @@ class HolderView {
             setMainView(this);
     }
     generateElements() {
-        if (pb.boards[this.id].type != BoardType.List || pb.boards[this.id].type != BoardType.PBoard)
+        if (pb.boards[this.id].type != BoardType.List && pb.boards[this.id].type != BoardType.PBoard)
             throw 'HolderView used for non holder type of board (PBoard | List)';
         this.elements.length = pb.boards[this.id].content.length;
         for (let i = 0; i < pb.boards[this.id].content.length; i++) {
