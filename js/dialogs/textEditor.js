@@ -1,53 +1,54 @@
-let textBoardAtStart = null;
-let textBoardGettingEdited = null;
-function showTextBoardDialog(event) {
-    if (event.srcElement == null)
-        event.srcElement = event.target;
-    if (drags.dragItem != null && (event.srcElement == drags.dragItem[0] || event.srcElement.parentNode == drags.dragItem[0]))
-        return;
-    let textBtn = event.srcElement;
-    let brdId = dataId(textBtn.parentNode);
-    let brd = pb.boards[brdId];
-    textBoardAtStart = JSON.stringify(brd);
-    textBoardGettingEdited = brdId;
-    if (brd == null)
-        alert('Text board modal: brd == null');
-    $('#textBoardDialogTitle').val(brd.name);
-    let text = $('#textBoardDialogText');
-    text.val(brd.content);
-    let modal = $('#textBoardDialog');
-    set_dataId(modal[0], brd.id);
-    modal.modal('show');
-    setTimeout(() => {
-        expandInput(text[0]);
-        EbyId('textBoardDialogTitle').select();
-    }, 10);
-}
-function closeTextBoardDialog() {
-    EbyId('textBoardDialog').click();
-}
-function textCloseClicked(event = null) {
-    if (JSON.stringify(pb.boards[textBoardGettingEdited]) != textBoardAtStart)
-        sync.saveAll();
-}
-function textBackClicked(event) {
-    if (event.target.id != 'textBoardDialog')
-        return;
-    textCloseClicked();
-}
-function textTitleChanged(event) {
-    let brdId = EbyId('textBoardDialog').getAttribute('data-id');
-    if (event.srcElement == null)
-        event.srcElement = event.target;
-    pb.boards[brdId].name = event.srcElement.value;
-    loadAllBoardsByDataId(brdId);
-    sync.save.dirty = true;
-}
-function textDescriptionChanged(event) {
-    let brdId = EbyId('textBoardDialog').getAttribute('data-id');
-    if (event.srcElement == null)
-        event.srcElement = event.target;
-    pb.boards[brdId].content = event.srcElement.value;
-    loadAllBoardsByDataId(brdId);
-    sync.save.dirty = true;
-}
+(dialogs['textEditor'] = {
+    init() {
+        this.isOpen = false;
+        this.dialog = EbyId('dialog_textEditor');
+        this.textTitle = EbyName('textTitle', this.dialog);
+        this.textText = EbyName('textText', this.dialog);
+        this.textTitle.oninput = textareaAutoSize.bind(null, this.textTitle);
+        EbyName('closeBtn', this.dialog).onclick = this.closeNoSave.bind(this);
+        EbyName('fullscreenBtn', this.dialog).onclick = this.fullscreen.bind(this);
+    },
+    open() {
+        this.isOpen = true;
+        this.dialog.classList.toggle('hidden', false);
+        this.textTitle.value = pb.boards[dialogBoardID].name;
+        this.textText.value = pb.boards[dialogBoardID].content;
+        textareaAutoSize(this.textTitle);
+        if (this.textTitle.value == "") {
+            this.textTitle.select();
+        }
+        else {
+            this.textText.select();
+            this.textText.setSelectionRange(0, 0);
+        }
+    },
+    close(save = false) {
+        if (save === null)
+            save = true;
+        if (this.isOpen && save) {
+            pb.boards[dialogBoardID].name = this.textTitle.value;
+            pb.boards[dialogBoardID].content = this.textText.value;
+            boardsUpdated([dialogBoardID]);
+        }
+        this.dialog.classList.toggle('hidden', true);
+        this.fullscreen(false);
+        this.isOpen = false;
+        closeDialog(false, false);
+    },
+    closeNoSave(force = false) {
+        let go = confirm("Exit without saving?");
+        if (go == false)
+            return;
+        this.close(false);
+    },
+    fullscreen(force = null) {
+        if (force === false || this.dialog.style.maxWidth != "") {
+            this.dialog.style.maxWidth = "";
+            this.dialog.style.maxHeight = "";
+        }
+        else {
+            this.dialog.style.maxWidth = "100%";
+            this.dialog.style.maxHeight = "100%";
+        }
+    },
+}).init();

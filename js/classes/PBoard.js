@@ -15,8 +15,7 @@ class PBoard {
 const BoardType = {
     Text: 1,
     Board: 2,
-    List: 3,
-    PBoard: 4
+    List: 3
 };
 function BoardTypeName(val) {
     for (let k in BoardType)

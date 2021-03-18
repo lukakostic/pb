@@ -15,8 +15,12 @@ function startLoadingIndicator() {
 function stopLoadingIndicator() {
     html.loadingIndicator.style.display = 'none';
 }
-function makeDraggable() {
-    return;
+function moveBoards(fromId, fromIndex, toId, toIndex, length = 1) {
+    let boards = pb.boards[fromId].content.splice(fromIndex, length);
+    pb.boards[toId].content.splice(toIndex, 0, ...boards);
+    boardsUpdated([fromId, toId]);
+}
+function makeBoardsDraggable() {
     let draggableLists = $('.draggableList');
     if (draggableLists.length !== 0)
         draggableLists.sortable({
@@ -32,8 +36,7 @@ function makeDraggable() {
                 log('drag stop');
                 setTimeout(() => {
                     drags.newDragIndex = elementIndex(drags.dragItem[0]);
-                    pb.boards[dataId(drags.dragOld[0])].content.splice(drags.oldDragIndex - 1, 1);
-                    pb.boards[dataId(drags.dragNew[0])].content.splice(drags.newDragIndex - 1, 0, dataId(drags.dragItem[0]));
+                    moveBoards(dataId(drags.dragOld[0]), drags.oldDragIndex - 1, dataId(drags.dragNew[0]), drags.newDragIndex - 1);
                     let clickItem = null;
                     if (((new Date()).getTime() - drags.dragStartTime) < 200 && drags.newDragIndex == drags.oldDragIndex) {
                         clickItem = drags.dragItem.find('div');
@@ -53,6 +56,8 @@ function makeDraggable() {
             },
             connectWith: ".draggableList"
         }).disableSelection();
+}
+function makeListsDraggable() {
     let draggableAlbums = $('.draggableAlbum');
     if (draggableAlbums.length !== 0)
         draggableAlbums.sortable({
@@ -67,8 +72,7 @@ function makeDraggable() {
                 log('drag list stop');
                 setTimeout(() => {
                     drags.newDragIndex = elementIndex(drags.dragItem[0]);
-                    pb.boards[board].content.splice(drags.oldDragIndex, 1);
-                    pb.boards[board].content.splice(drags.newDragIndex, 0, dataId(drags.dragItem[0]));
+                    moveBoards(board, drags.oldDragIndex, board, drags.newDragIndex);
                     drags.dragItem = null;
                     sync.saveAll();
                 }, 50);

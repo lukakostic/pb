@@ -11,16 +11,20 @@
 
   <script src="./_external/jquery-3.3.1.min.js"></script>
 <script src="./_external/popper.min.js"></script>
+
+<!--
 <script src="./_external/bootstrap.min.js"></script>
+-->
 <script src="./_external/bootbox.js"></script>
 <script src="./_external/jquery-ui.min.js"></script>
 <script src="./_external/jquery.ui.touch-punch.js"></script>
 <script src="./_external/js.cookie.min.js"></script>
 
-
+<!--
 <link rel="stylesheet" href="./_external/bootstrap.min.css">
-<link rel="stylesheet" href="./_external/fa-all.css">
 <link rel="stylesheet" href="./_external/fa-v4-shims.css">
+-->
+<link rel="stylesheet" href="./_external/fa-all.css">
 
 
 <link rel="stylesheet" href="./index.css">
@@ -28,9 +32,8 @@
 
 
 
-
-<!-- utils used everywhere -->
 <script defer src="./js/utils.js"></script>
+<script defer src="./js/objects/html.js"></script>
 
 <!-- core classes  -->
 <script defer src="./js/classes/Tag.js"></script>
@@ -43,7 +46,6 @@
 <script defer src="./js/_manager.js"></script>
 
 <!-- objects -->
-<script defer src="./js/objects/html.js"></script>
 <script defer src="./js/objects/updater.js"></script>
 <script defer src="./js/objects/sync.js"></script>
 <script defer src="./js/objects/boardHistory.js"></script>
@@ -58,22 +60,21 @@
 <script defer src="./js/view/view.js"></script>
 
 <!-- ui scripts -->
-<script defer src="./js/ui/dialogs.js"></script>
-<script defer src="./js/ui/dataBinder.js"></script>
 <script defer src="./js/ui/autoCSS.js"></script>
 <script defer src="./js/ui/ui.js"></script>
 <script defer src="./js/ui/ui2.js"></script>
+<script defer src="./js/ui/header.js"></script>
 <script defer src="./js/ui/styler.js"></script>
 
 <!-- dialog and editor scripts -->
-<!--
+<script defer src="./js/dialogs/textEditor.js"></script>
 <script defer src="./js/dialogs/optionsDialog.js"></script>
+<!--
 <script defer src="./js/dialogs/extrasDialog.js"></script>
 <script defer src="./js/dialogs/tagsDialog.js"></script>
 <script defer src="./js/dialogs/extensionsDialog.js"></script>
 <script defer src="./js/dialogs/preferencesDialog.js"></script>
 <script defer src="./js/dialogs/backupsDialog.js"></script>
-<script defer src="./js/dialogs/textEditor.js"></script>
 <script defer src="./js/dialogs/extensionEditor.js"></script>
 <script defer src="./js/dialogs/tagEditor.js"></script>
 -->
@@ -149,20 +150,23 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     flex: 0 0 auto; /*dont shrink or expand*/
   }
   .tile{
+    box-sizing: border-box;
     flex: 0 0 auto; /*dont shrink or expand*/
-    background-color: #444444;
+    background-color: #bfbfbf;
     border-radius: 4px;
+    border: 2px solid black;
   }
   
 
   [data-name="tile-text"]{
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
     max-height: inherit; /* So tile can limit max line count */
     overflow: hidden;
     text-overflow: ellipsis;
 
-    color: white;
+    color: black;
     padding: 5px;
     border-radius: inherit;
   }
@@ -177,6 +181,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     font-weight: bolder;
     color:black;
     border: 0px;
+    border-radius: 5px;
   }
 
   [data-name="list-adder"]{
@@ -195,12 +200,13 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     text-overflow: ellipsis;
 
     border-radius: 5px;
+    border: 2px solid black;
   }
   
   [data-name="tile-textIcon"]{
     font-size: 12px;
     margin-top:-2px;
-    color:#777777;
+    color:dimgray;
   }
 
   
@@ -208,13 +214,13 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   /* Color differently based on board type: */
   
   [data-type="Text"]{
-    background-color:#5f5f58;
+    background-color:#c5c5a3;
   }
   [data-type="Board"]{
-    background-color:#444444;
+    background-color:#aeaeae;
   }
   [data-type="List"]{
-    background-color:#5e6669;
+    background-color:#b8d3db;
   }
   
 </style>
@@ -222,28 +228,23 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   <header id="header">
 
   <!-- Folded/Hidden content -->
-  <div id="navbarHeader" class="fWidth bg-inh collapse" style="transition: none;">
-    <div class="container-fluid fWidth d-flex" style="padding: 0px !important;">
+  <div id="headerFold" class="d-flex fWidth bg-inh hidden" style="transition: none; max-height: 80%;">
+      
+    <textarea id="headerDescription" placeholder="Board Description"
+    autocomplete="off" wrap="hard" style="flex: 1; min-height: 2em;"></textarea>
 
-      <form class="row text bg-inherit" style="margin: 0px; flex: 1;">
-        <textarea id="boardDescription" oninput="expandInput(this);boardDescriptionChanged(event);"
-        placeholder="Board Description" wrap="hard" class="expandInput card-name bg-inherit"
-        style="resize: none;  margin: 3px; text-overflow: ellipsis; border: 0px; width: 100%;"></textarea>
-
-        <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
-      </form>
-
+    <!-- Resizes vertically to stack all buttons in it: -->
+    <div class="d-flex" style="flex-flow: column wrap;">
       <button onclick="showExtrasClicked(event)" class="b"><i class="fas fa-cogs"></i></button>
-
     </div>
+      
   </div>
 
   <!-- Visible unfolded -->
-  <div class="bg-inh d-flex fWdith" style="padding: 1px !important;">
+  <div class="bg-inh d-flex fWdith">
 
     <!-- Header expand button -->
-    <button onclick="setTimeout(()=>{expandInput(document.getElementById('boardDescription'));},1);" type="button" class="b collapsed"
-    data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false">
+    <button id="headerExpand" type="button" class="b">
       <i class="fas fa-bars"></i>
     </button>
 
@@ -255,7 +256,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     <button id="loadBtn" class="b"><i class="fas fa-folder-open"></i></button>
 
     <!-- Board Title -->
-    <input id="boardTitle" oninput="boardTitleChanged(event)" type="text" placeholder="Title" 
+    <input id="headerTitle" type="text" placeholder="Title" autocomplete="off"
     style="flex: 1; overflow: hidden; text-overflow: ellipsis; font-weight: bold;">
   
     
@@ -266,116 +267,55 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
   <!-- Dialogs -->
 
-<div id="textBoardDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-id="" aria-hidden="true" onclick="textBackClicked(event)">
-  <div class="modal-dialog" role="document" style="width: 95%; max-width: 600px; background-color: #343434;border-radius: 5px;">
-    <div class="modal-content bg-inherit" style="border-radius: 5px;">
-      <div class="modal-header text-center bg-inherit" style="padding: 5px;">
-        <form onsubmit="event.preventDefault(); closeTextBoardDialog(event);" style="width: calc(100% - 30px); padding-left: 5px; padding-right: 2px; padding-top: 2px;">
-          <input type="text" class="card-name bg-inherit" id="textBoardDialogTitle"
-          style="width: 100%; padding: 0px; white-space: nowrap; overflow: hidden; font-weight: bolder; text-overflow: ellipsis; color:white; border: 0px; font-size: 20px;"
-          value="Title" oninput="textTitleChanged(event)" placeholder="Title"></input>
-          <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
-        </form >
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  tabindex="-1" style="padding: 4px;margin:0px!important;margin-top:-3px !important;color:white;" onclick="textCloseClicked(event)">
-          <span aria-hidden="true">&#215;</span>
-        </button>
-        
-      </div>
-      <div class="modal-body">
-        
-          <form class="row text bg-inherit" style="margin: 0px; width:100%; min-height: 115px;">
-              <textarea wrap="hard" class="expandInput card-name bg-inherit"  id="textBoardDialogText"
-                style="resize: none; padding: 2px 2px 2px 5px; text-overflow: ellipsis; color: white; border: 0px; width: 100%; height: 59px; font-size: 18px; min-height: 120px;"
-                oninput="expandInput(this);textDescriptionChanged(event);" placeholder="Description">Text</textarea>
+<div id="dialogBack" class="hidden">
+
+
+
+  <div id="dialog_textEditor" class="dialog d-flex hidden" tabindex="-1" style="flex-direction:column; background-color: black;">
+    <div class="dialog-header">
+    
+      <textarea data-name="textTitle" type="text" placeholder="Title" autocomplete="off"
+      style="resize:none; max-height: 120px; flex: 1; font-size: 22px; padding: 2px 5px 2px 5px;"></textarea>
+
+      <button data-name="fullscreenBtn" type="button" tabindex="-1"><span>&#9744;</span></button>
+      <button data-name="closeBtn" type="button" tabindex="-1"><span>&#215;</span></button>
       
-              <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
-          </form>
+    </div>
 
-      </div>
+    <div class="dialog-body">
+      <textarea data-name="textText"
+      wrap="off"  placeholder="Text" autocomplete="off"
+      style="box-sizing: border-box; resize: none; width:100%;height:100%; padding:5px; font-size: 18px;" ></textarea>
     </div>
   </div>
-</div>
 
 
-<div id="extensionEditorDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-id="" aria-hidden="true" onclick="textBackClicked(event)">
-  <div class="modal-dialog" role="document" style="width: 95%; max-width: 600px; background-color: #343434;border-radius: 5px;">
-    <div class="modal-content bg-inherit" style="border-radius: 5px;">
-      <div class="modal-header text-center bg-inherit" style="padding: 5px;">
-        <form onsubmit="event.preventDefault(); closeExtensionEditorTitleChanged(event)" placeholder="Title"></input>
-          <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
-        </form >
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  tabindex="-1" style="padding: 4px;margin:0px!important;margin-top:-3px !important;color:white;" onclick="alert('closing button??')">
-          <span aria-hidden="true">&#215;</span>
-        </button>
-        
-      </div>
-      <div class="modal-body">
-        
-          <form class="row text bg-inherit" style="margin: 0px; width:100%;">
-              <textarea wrap="hard" class="expandInput card-name bg-inherit"  id="extensionEditorText"
-                style="resize: none; padding: 2px 2px 2px 5px; text-overflow: ellipsis; color: white; border: 0px; width: 100%; height: 59px; font-size: 18px;"
-                oninput="expandInput(this);textDescriptionChanged(event);" placeholder="Description">Text</textarea>
-      
-              <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
-          </form>
-
-      </div>
+  <div id="dialog_optionsDialog" class="dialog hidden" style="max-width:300px; max-height:200px;" tabindex="-1">
+    <div class="dialog-body d-flex" style="flex-direction:column;justify-content:space-evenly;">
+      <button data-name="remove" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="removeClicked(event)">Remove</button>
+      <button data-name="delete" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="deleteClicked(event)">Delete</button>
+      <button data-name="copy" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="copyIdClicked(event)">Copy ID (reference)</button>
+      <button data-name="references" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="showSeeReferencesDialog(event)">See References</button>
+      <button data-name="extras" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="showBoardExtrasDialog(event)">Extras</button>
     </div>
   </div>
-</div>
 
-
-<div id="optionsDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="width: 95%; max-width: 300px; background-color: #343434;border-radius: 5px;">
-    <div class="modal-content bg-inherit" style="border-radius: 5px;">
-      <div class="modal-body">
+  <div id="referencesDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 95%; max-width: 300px; background-color: #343434;border-radius: 5px;">
+      <div class="modal-content bg-inherit" style="border-radius: 5px;">
         
-        <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" onclick="removeClicked(event)">Remove</button>
-        <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" onclick="deleteClicked(event)">Delete</button>
-        <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" onclick="copyIdClicked(event)">Copy ID (reference)</button>
-        <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" onclick="showSeeReferencesDialog(event)">See References</button>
-        <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" onclick="showBoardExtrasDialog(event)">Extras</button>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div id="extrasDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" onclick="extrasBackgroundClicked(event)">
-  <div class="modal-dialog" role="document" style="width: 95%; max-width: 800px; background-color: #343434;border-radius: 5px;">
-    <div class="modal-content bg-inherit" style="border-radius: 5px;">
-      <div class="modal-body" style="text-align: center;">
-
-        <div>
-          <a id="extrasTitle" style="color: white; background-color: black;">Board Extras</a>
-          <button id="extrasBack" style="float: right; color: white; background-color: black; border: 0px;"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+        <template id="referencesDialogBtn">
+          <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" data-id="" onclick="openBoard(boardId)">Remove</button>
+        </template>
+  
+        <div id="referencesDialogList">
         </div>
-
-        <br>
-        <div  id="extrasContent" style="margin:2px;"></div>
-      
+  
       </div>
     </div>
   </div>
+
 </div>
-
-
-<div id="referencesDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="width: 95%; max-width: 300px; background-color: #343434;border-radius: 5px;">
-    <div class="modal-content bg-inherit" style="border-radius: 5px;">
-      
-      <template id="referencesDialogBtn">
-        <button type="button" class="btn bg-inherit btn-dark" style="width: 100%; margin: 5px; padding: 3px; font-size: 18px;" data-id="" onclick="referencesDialogBtn(event)">Remove</button>
-      </template>
-
-      <div id="referencesDialogList" class="modal-body">
-      </div>
-
-    </div>
-  </div>
-</div>
-
 
 <!-- End Of Dialogs -->
 
@@ -474,7 +414,6 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
   <!-- Content goes in here: -->
   <div id="main" class="bgCol">
-    
   </div>
 
 </body>

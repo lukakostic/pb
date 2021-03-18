@@ -1,7 +1,28 @@
 let autoUI = -1;
+let dialogBoardID = null;
+let dialogBoardView = null;
+let dialogs = {};
+function openDialog(boardId, boardView, dialog) {
+    closeDialog();
+    html.dialogBack.classList.toggle('hidden', false);
+    dialogBoardID = boardId;
+    dialogBoardView = boardView;
+    dialogs[dialog].open();
+}
+function closeDialog(backClicked = false, all = true) {
+    if (all)
+        for (let k in dialogs)
+            dialogs[k].close(backClicked ? null : false);
+    html.dialogBack.classList.toggle('hidden', true);
+    dialogBoardID = null;
+    dialogBoardView = null;
+}
 function htmlLoaded() {
     if (autoUI == -1)
         autoUI = setInterval(autoUI_function, 100);
+    html.headerTitle.oninput = headerTitle_oninput;
+    html.headerDescription.oninput = headerDescription_oninput;
+    EbyId('headerExpand').onclick = headerExpand_onclick;
     EbyId('homeBtn').onclick = goHome;
     EbyId('upBtn').onclick = goUp;
     EbyId('saveBtn').onclick = () => { sync.saveAll(null, true); };
@@ -24,6 +45,10 @@ function htmlLoaded() {
         let filename = "PBoard " + dateTag + ".txt";
         saveBlobFile(filename, "data:attachment/text", text);
     };
+    html.dialogBack.addEventListener('click', function (event) {
+        if (event.target == this)
+            closeDialog(true);
+    }, false);
 }
 function pageOpened() {
     log("pageOpened()");
@@ -34,10 +59,13 @@ function pageOpened() {
     extensions.invoke('newPage');
     extensions.execute();
 }
-function clearBoards(no, nope, nopp, never) { }
-function clearLists(no, nope, nopp, never) { }
-function drawBoardAlbum(no, nope, nopp, never) { }
-function drawListAlbum(no, nope, nopp, never) { }
+function boardsUpdated(boards, save = 1) {
+    pageOpened();
+    if (save == 1)
+        sync.saveAll();
+    else if (save == 2)
+        sync.save.dirty = true;
+}
 function loadBackground(brdEl, id) {
     brdEl.style.backgroundImage = "url('" + brdAttr(id, 'background') + "')";
     brdEl.style.repeatMode = "no-repeat";

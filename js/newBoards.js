@@ -1,32 +1,28 @@
 function newText(parentId, name = null) {
     if (name == null)
-        name = "Text";
-    let brd = new Board(BoardType.Text, name, "", { references: 1 });
+        name = "";
+    let brd = new Board(BoardType.Text, name, "");
     pb.boards[brd.id] = brd;
     pb.boards[parentId].content.push(brd.id);
-    pageOpened();
-    sync.saveAll();
+    boardsUpdated([parentId, brd.id]);
     return brd.id;
 }
 function newBoard(parentId, name = null) {
     if (name == null)
         name = "Board";
-    let atr = { description: '', references: 1 };
-    let brd = new Board(BoardType.Board, name, [], atr);
+    let brd = new Board(BoardType.Board, name, [], { description: '' });
     pb.boards[brd.id] = brd;
     pb.boards[parentId].content.push(brd.id);
-    pageOpened();
-    sync.saveAll();
+    boardsUpdated([parentId, brd.id]);
     return brd.id;
 }
 function newList(parentId, name = null) {
     if (name == null)
         name = "List";
-    let brd = new Board(BoardType.List, name, [], { references: 1 });
+    let brd = new Board(BoardType.List, name, []);
     pb.boards[brd.id] = brd;
     pb.boards[parentId].content.push(brd.id);
-    pageOpened();
-    sync.saveAll();
+    boardsUpdated([parentId, brd.id]);
     return brd.id;
 }
 function newReference(parentId, id = null) {
@@ -40,8 +36,6 @@ function newReference(parentId, id = null) {
         }
     }
     pb.boards[parentId].content.push(id);
-    pb.boards[id].attributes['references']++;
-    pageOpened();
-    sync.saveAll();
+    boardsUpdated([parentId, id]);
     return id;
 }

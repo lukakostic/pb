@@ -68,10 +68,8 @@ function qSel(query, element = document) {
 function qSelAll(query, element = document) {
     return element.querySelectorAll(query);
 }
-function nulledGetAttribute(el, attr) {
-    if (el.hasAttribute(attr))
-        return el.getAttribute(attr);
-    return null;
+function def(a, b, ifA = x => x != null) {
+    return ifA(a) ? a : b;
 }
 function EbyId(id) {
     return document.getElementById(id);

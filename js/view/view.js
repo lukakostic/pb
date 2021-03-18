@@ -2,8 +2,14 @@ const ViewMode = {
     List: 0,
     Board: 1
 };
+const ViewMode2 = {
+    None: 0,
+    Notes: 1,
+    Grid: 2
+};
 let mainView = null;
 let viewMode = ViewMode.List;
+let viewMode2 = ViewMode2.None;
 function setMainView(v) {
     mainView = v;
     if (pb.boards[mainView.id].type == BoardType.List) {
@@ -14,36 +20,38 @@ function setMainView(v) {
         viewMode = ViewMode.Board;
         html.main.setAttribute('data-view', "ViewModeBoard");
     }
+    loadHeaderData();
 }
 function clearMainView() {
     mainView = null;
     html.main.innerHTML = "";
     viewMode = ViewMode.List;
 }
-function generateView(_id, _parentEl) {
+function generateView(_id, _parentEl, _index) {
     let type = pb.boards[_id].type;
     if (_parentEl == html.main) {
         if (type == BoardType.List)
-            return new ListView(_id, _parentEl);
+            return new ListView(_id, _parentEl, _index);
         if (type == BoardType.Text)
             throw "Trying to open text fullscreen";
-        return new AlbumView(_id, _parentEl);
+        return new AlbumView(_id, _parentEl, _index);
     }
     else if (viewMode == ViewMode.Board) {
         if (type == BoardType.List && _parentEl == mainView.holderElement)
-            return new ListView(_id, _parentEl);
-        return new TileView(_id, _parentEl);
+            return new ListView(_id, _parentEl, _index);
+        return new TileView(_id, _parentEl, _index);
     }
     else if (viewMode == ViewMode.List) {
-        return new TileView(_id, _parentEl);
+        return new TileView(_id, _parentEl, _index);
     }
     return null;
 }
 class HolderView {
-    constructor(_id = "", _parentEl) {
+    constructor(_id = "", _parentEl, _index) {
         this.id = _id;
         this.parentEl = _parentEl;
         this.htmlEl = null;
+        this.index = _index;
         this.holderElement = null;
         this.elements = [];
         if (this.parentEl == html.main)
@@ -56,9 +64,11 @@ class HolderView {
         this.elements.length = len;
         for (let i = 0; i < len; i++) {
             if (this.elements[i] == undefined || this.elements[i] == null)
-                this.elements[i] = generateView(pb.boards[this.id].content[i], this.holderElement);
-            else
+                this.elements[i] = generateView(pb.boards[this.id].content[i], this.holderElement, i);
+            else {
                 this.elements[i].id = pb.boards[this.id].content[i];
+                this.elements[i].index = i;
+            }
         }
     }
     buildSelf() {
@@ -76,8 +86,8 @@ class HolderView {
     }
 }
 class AlbumView extends HolderView {
-    constructor(_id = "", _parentEl) {
-        super(_id, _parentEl);
+    constructor(_id = "", _parentEl, _index) {
+        super(_id, _parentEl, _index);
     }
     buildSelf() {
         if (this.htmlEl != null && this.htmlEl.parentElement == null)
@@ -105,8 +115,8 @@ class AlbumView extends HolderView {
     }
 }
 class ListView extends HolderView {
-    constructor(_id = "", _parentEl) {
-        super(_id, _parentEl);
+    constructor(_id = "", _parentEl, _index) {
+        super(_id, _parentEl, _index);
     }
     buildSelf() {
         if (this.htmlEl != null && this.htmlEl.parentElement == null)
@@ -178,10 +188,11 @@ class ListView extends HolderView {
     }
 }
 class TileView {
-    constructor(_id = "", _parentEl) {
+    constructor(_id = "", _parentEl, _index) {
         this.id = _id;
         this.parentEl = _parentEl;
         this.htmlEl = null;
+        this.index = _index;
         this.optionsBtn = null;
         this.text = null;
         this.textIcon = null;
@@ -202,7 +213,10 @@ class TileView {
     }
     render() {
         this.buildSelf();
-        this.text.childNodes[2].nodeValue = pb.boards[this.id].name;
+        let titleText = pb.boards[this.id].name;
+        if (titleText.trim() == '')
+            titleText = "\xa0";
+        this.text.childNodes[2].nodeValue = titleText;
         this.htmlEl.setAttribute('data-type', BoardTypeName(pb.boards[this.id].type));
         loadBackground(this.htmlEl, this.id);
         if (pb.boards[this.id].type == BoardType.Text && pb.boards[this.id].content.length > 0)
@@ -222,8 +236,11 @@ class TileView {
 }
 function openBoard(id) {
     if (pb.boards[id].type == BoardType.Text) {
-        alert("Text!");
+        openTextBoard(id);
         return;
     }
     set_board(id);
+}
+function openTextBoard(id) {
+    openDialog(id, null, 'textEditor');
 }
