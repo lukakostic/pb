@@ -10,12 +10,11 @@
   <link rel="shortcut icon" type="image/png" href="./favicon.png"/>
 
   <script src="./_external/jquery-3.3.1.min.js"></script>
-<script src="./_external/popper.min.js"></script>
-
 <!--
+<script src="./_external/popper.min.js"></script>
 <script src="./_external/bootstrap.min.js"></script>
--->
 <script src="./_external/bootbox.js"></script>
+-->
 <script src="./_external/jquery-ui.min.js"></script>
 <script src="./_external/jquery.ui.touch-punch.js"></script>
 <script src="./_external/js.cookie.min.js"></script>
@@ -28,56 +27,20 @@
 
 
 <link rel="stylesheet" href="./index.css">
-<link rel="stylesheet" href="./boardStuff.css">
 
 
 
-<script defer src="./js/utils.js"></script>
-<script defer src="./js/objects/html.js"></script>
+<script defer src="./js/_utils.js"></script>
+<script defer src="./js/_html.js"></script>
 
 <!-- core classes  -->
-<script defer src="./js/classes/Tag.js"></script>
-<script defer src="./js/classes/Extension.js"></script>
-<script defer src="./js/classes/PBoard.js"></script>
+<script defer src="./js/Classes_ALL.js"></script>
 
 <!--main-->
-<script defer src="./js/navigation.js"></script>
-<script defer src="./js/newBoards.js"></script>
 <script defer src="./js/_manager.js"></script>
 
-<!-- objects -->
-<script defer src="./js/objects/updater.js"></script>
-<script defer src="./js/objects/sync.js"></script>
-<script defer src="./js/objects/boardHistory.js"></script>
-<script defer src="./js/objects/extensions.js"></script>
-<script defer src="./js/objects/css.js"></script>
+<script defer src="./js/ALL.js"></script> <!-- auto generated -->
 
-<!-- Storage -->
-<script defer src="./js/storage/_storage.js"></script>
-<script defer src="./js/storage/drive.js"></script>
-
-<!-- view model -->
-<script defer src="./js/view/view.js"></script>
-
-<!-- ui scripts -->
-<script defer src="./js/ui/autoCSS.js"></script>
-<script defer src="./js/ui/ui.js"></script>
-<script defer src="./js/ui/ui2.js"></script>
-<script defer src="./js/ui/header.js"></script>
-<script defer src="./js/ui/styler.js"></script>
-
-<!-- dialog and editor scripts -->
-<script defer src="./js/dialogs/textEditor.js"></script>
-<script defer src="./js/dialogs/optionsDialog.js"></script>
-<!--
-<script defer src="./js/dialogs/extrasDialog.js"></script>
-<script defer src="./js/dialogs/tagsDialog.js"></script>
-<script defer src="./js/dialogs/extensionsDialog.js"></script>
-<script defer src="./js/dialogs/preferencesDialog.js"></script>
-<script defer src="./js/dialogs/backupsDialog.js"></script>
-<script defer src="./js/dialogs/extensionEditor.js"></script>
-<script defer src="./js/dialogs/tagEditor.js"></script>
--->
 <script defer src="./js/_entry.js"></script>
 
 <!-- Connect to storage: google drive -->
@@ -89,6 +52,9 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
 
 <body>
+
+  <a id="tabStart" tabindex="0"></a>
+
   <style id="style">
 
   #main {
@@ -101,47 +67,47 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
   /* View model specific options */
 
-  #main[data-view="ViewModeList"] [data-name="list-holder"]{
+  #main[data-viewMode="List"] [data-name="list-holder"]{
     display: flex;
     flex-flow: row wrap;
   }
-  #main[data-view="ViewModeList"]>.list{ /* Disable margins on mobile somehow? */
+  #main[data-viewMode="List"]>.list{ /* Disable margins on mobile somehow? */
     /*margin-left: 20px;*/
     /*margin-right: 20px;*/
     transform: none; /*Dont wanna leave css*/
   }
-  #main[data-view="ViewModeList"] .tile{
+  #main[data-viewMode="List"] .tile{
     height: 100px;
     width: 200px;
 
     margin: 10px 10px 10px 10px;
   }
-  #main[data-view="ViewModeList"] [data-name="list-adder"]{
+  #main[data-viewMode="List"] [data-name="list-adder"]{
     height: 50px;
     margin: 10px;
   }
-  #main[data-view="ViewModeList"] [data-name="list-adder"]>.b{
+  #main[data-viewMode="List"] [data-name="list-adder"]>.b{
     flex-grow: .03;
     height: 100%;
     font-weight: bold;
   }
 
-  #main[data-view="ViewModeBoard"] .list{
+  #main[data-viewMode="Board"] .list{
     width: 300px;
 
     margin: 0px 3px 0px 3px;
   }
-  #main[data-view="ViewModeBoard"] .tile{
+  #main[data-viewMode="Board"] .tile{
     /* height: 100px; */ /*we dont want this, so the tile would resize to full name text*/
     max-height: 154px; /* limit how many max lines */
     max-width: 300px;
 
     margin: 5px 0px 5px 0px;
   }
-  #main[data-view="ViewModeBoard"] [data-name="list-adder"]{
+  #main[data-viewMode="Board"] [data-name="list-adder"]{
     justify-content: center;
   }
-  #main[data-view="ViewModeBoard"] [data-name="list-adder"]>.b{
+  #main[data-viewMode="Board"] [data-name="list-adder"]>.b{
     flex: 1;
   }
   
@@ -165,6 +131,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     max-height: inherit; /* So tile can limit max line count */
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: pre-line;
 
     color: black;
     padding: 5px;
@@ -214,15 +181,56 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   /* Color differently based on board type: */
   
   [data-type="Text"]{
-    background-color:#c5c5a3;
+    background-color:#ffffe3;
   }
   [data-type="Board"]{
-    background-color:#aeaeae;
+    background-color:#f0f0f0;
   }
   [data-type="List"]{
-    background-color:#b8d3db;
+    background-color:#e7f9ff;
   }
   
+
+  [data-highlightId="highlighted"]{
+    outline-style: solid;
+    outline-width: 5px;
+    outline-offset: -3px;
+    outline-color: black;
+    animation: bw-outline 1s step-start 0s infinite;
+  }
+  [data-highlightId="highlighted-input"]{
+    outline-style: solid;
+    outline-width: 4px;
+    outline-offset: -2px;
+    outline-color: black;
+    animation: semiRainbow-outline 1s infinite;
+  }
+  @keyframes bw-outline{
+    50% {
+      outline-color: transparent;
+    }
+  }
+  @keyframes semiRainbow-outline{
+    100%,0% {outline-color: black;}
+    25% {outline-color: lime;}
+    50% {outline-color: cyan;}
+    75% {outline-color: red;}
+  }
+  @keyframes rainbow-outline{
+    100%,0% {outline-color: rgb(255,  0,0  );}
+    8%      {outline-color: rgb(255,127,0  );}
+    16%     {outline-color: rgb(255,255,0  );}
+    25%     {outline-color: rgb(127,255,0  );}
+    33%     {outline-color: rgb(0  ,255,0  );}
+    41%     {outline-color: rgb(0  ,255,127);}
+    50%     {outline-color: rgb(0  ,255,255);}
+    58%     {outline-color: rgb(0  ,127,255);}
+    66%     {outline-color: rgb(0  ,0  ,255);}
+    75%     {outline-color: rgb(127,0  ,255);}
+    83%     {outline-color: rgb(255,0  ,255);}
+    91%     {outline-color: rgb(255,0  ,127);}
+  }
+
 </style>
 
   <header id="header">
@@ -244,7 +252,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   <div class="bg-inh d-flex fWdith">
 
     <!-- Header expand button -->
-    <button id="headerExpand" type="button" class="b">
+    <button id="headerExpand" type="button" class="b" tabindex="0">
       <i class="fas fa-bars"></i>
     </button>
 
@@ -254,6 +262,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
     <button id="saveBtn" class="b"><i class="fas fa-save"></i></button>
     <button id="saveDownloadBtn" class="b"><i class="fas fa-download"></i></button>
     <button id="loadBtn" class="b"><i class="fas fa-folder-open"></i></button>
+    <button id="loadDownloadBtn" class="b"><i class="fas fa-upload"></i></button>
 
     <!-- Board Title -->
     <input id="headerTitle" type="text" placeholder="Title" autocomplete="off"
@@ -272,25 +281,27 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
 
   <div id="dialog_textEditor" class="dialog d-flex hidden" tabindex="-1" style="flex-direction:column; background-color: black;">
+  <a data-tab="textText" tabindex="1"></a>
     <div class="dialog-header">
     
-      <textarea data-name="textTitle" type="text" placeholder="Title" autocomplete="off"
+      <textarea data-name="textTitle" type="text" placeholder="Title" autocomplete="off"  tabindex="2"
       style="resize:none; max-height: 120px; flex: 1; font-size: 22px; padding: 2px 5px 2px 5px;"></textarea>
 
-      <button data-name="fullscreenBtn" type="button" tabindex="-1"><span>&#9744;</span></button>
-      <button data-name="closeBtn" type="button" tabindex="-1"><span>&#215;</span></button>
+      <button data-name="fullscreenBtn" type="button" tabindex="4"><span>&#9744;</span></button>
+      <button data-name="closeBtn" type="button" tabindex="5"><span>&#215;</span></button>
       
     </div>
 
     <div class="dialog-body">
-      <textarea data-name="textText"
-      wrap="off"  placeholder="Text" autocomplete="off"
+      <textarea data-name="textText" wrap="on"  placeholder="Text" autocomplete="off" tabindex="3"
       style="box-sizing: border-box; resize: none; width:100%;height:100%; padding:5px; font-size: 18px;" ></textarea>
     </div>
+  <a data-tab="textTitle" tabindex="6"></a>
   </div>
 
 
   <div id="dialog_optionsDialog" class="dialog hidden" style="max-width:300px; max-height:200px;" tabindex="-1">
+  <a data-tab="extras" tabindex="0"></a>
     <div class="dialog-body d-flex" style="flex-direction:column;justify-content:space-evenly;">
       <button data-name="remove" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="removeClicked(event)">Remove</button>
       <button data-name="delete" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="deleteClicked(event)">Delete</button>
@@ -298,6 +309,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
       <button data-name="references" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="showSeeReferencesDialog(event)">See References</button>
       <button data-name="extras" type="button" class="b" style="font-size: 20px; width: 100%;" onclick="showBoardExtrasDialog(event)">Extras</button>
     </div>
+  <a data-tab="remove" tabindex="0"></a>
   </div>
 
   <div id="referencesDialog" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -397,10 +409,7 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
     <button data-name="tile-optionsBtn" class="dot"></button>
 
-    <div data-name="tile-text" class="bg-inh">
-      <span data-name="tile-textIcon" class="fa fa-align-right d-none">&nbsp;</span>
-      Text
-    </div>
+    <div data-name="tile-text" class="bg-inh"><span data-name="tile-textIcon" class="fa fa-align-right d-none">&nbsp;</span>Text</div>
 
     
     <!-- Needs image here -->
@@ -416,6 +425,8 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   <div id="main" class="bgCol">
   </div>
 
+  
+  <a id="tabEnd" tabindex="0"></a>
 </body>
 
 </html>

@@ -1,2 +1,2 @@
+_Storage_.init(StorageType.None);
 htmlLoaded();
-storage.StorageLoaded(StorageType.None);

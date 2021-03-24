@@ -1,7 +1,7 @@
-let LOG_DISABLED = true;
-let LOGW_DISABLED = true;
+let LOG_DISABLED = false;
+let LOGW_DISABLED = false;
 let LOGE_DISABLED = false;
-let log = function () {
+const log = function () {
     if (LOG_DISABLED)
         return function () { };
     for (let i = 0; i < arguments.length; i++)
@@ -9,20 +9,28 @@ let log = function () {
             alert(arguments[i]);
     return Function.prototype.bind.call(console.log, console);
 }();
-let logw = function () {
+const logt = function () {
+    if (LOG_DISABLED)
+        return function () { };
+    for (let i = 0; i < arguments.length; i++)
+        if (arguments[i] instanceof Error)
+            alert(arguments[i]);
+    return Function.prototype.bind.call(console.trace, console);
+}();
+const logw = function () {
     if (LOGW_DISABLED)
         return function () { };
     return Function.prototype.bind.call(console.warn, console);
 }();
-let loge = function () {
+const loge = function () {
     if (LOGE_DISABLED)
         return function () { };
     return Function.prototype.bind.call(console.error, console);
 }();
-let alog = function () {
+const alog = function () {
     return Function.prototype.bind.call(console.log, console);
 }();
-let mlog = function () {
+const mlog = function () {
     return Function.prototype.bind.call(console.log, console);
 }();
 function getMainCookie() {
@@ -47,7 +55,9 @@ function setCookie(name, value) {
 function urlFromBoard(boardId) {
     return siteUrl + "#" + boardId;
 }
-function boardFromUrl(_url) {
+function boardFromUrl(_url = '') {
+    if (_url === '')
+        _url = window.location.href;
     return _url.replace(siteUrl, '').replace('#', '');
 }
 function hash(str) {

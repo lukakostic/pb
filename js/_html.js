@@ -1,13 +1,10 @@
-let html = {
+const html = {
     main: EbyId('main'),
     albumTemplate: templateFChild('album-template'),
     list2Template: templateFChild('list-template'),
     tileTemplate: templateFChild('tile-template'),
-    header: EbyId('header'),
-    headerTitle: EbyId('headerTitle'),
-    headerDescription: EbyId('headerDescription'),
-    headerFold: EbyId('headerFold'),
-    dialogBack: EbyId('dialogBack'),
+    tabStart: EbyId('tabStart'),
+    tabEnd: EbyId('tabEnd'),
     loadingIndicator: EbyId('loadingIndicator'),
     savingIndicator: EbyId('savingIndicator'),
     extrasDialog: EbyId('extrasDialog'),
