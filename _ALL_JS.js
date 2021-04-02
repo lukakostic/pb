@@ -129,8 +129,8 @@ const dbg = function () {
     for (let i = 0; i < arguments.length; i++)
         if (arguments[i] instanceof Error)
             alert(arguments[i]);
-    console.trace();
-    return Function.prototype.bind.call(console.debug, console);
+    let color = "background: #222; color: #bada55";
+    return Function.prototype.bind.call(console.debug, console, '%c $ ', color);
     //let context = "My Descriptive Logger Prefix:";
     //return Function.prototype.bind.call(console.log, console, context);
 }();
@@ -594,13 +594,13 @@ const boardHistory = {
     },
     //add board to history, skip if already last
     add(boardId) {
-        console.log('bh add ("' + boardId + '")', this.history);
+        dbg('bh add ("' + boardId + '")', this.history);
         if (boardId !== this.last())
             this.history.push(boardId);
     },
     //pop previous in history (pops current)
     prev() {
-        console.log('bh prev', this.history);
+        dbg('bh prev', this.history);
         this.history.pop(); //pop current
         set_board((this.history.length > 0) ? this.history.pop() //pop and get before current
             : "");
