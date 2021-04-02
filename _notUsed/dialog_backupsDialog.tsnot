@@ -136,9 +136,9 @@ function loadBackupClicked(event){
     storage.fileDownload(availableBackups[ind].name, (content)=>{
     //getBackups(function(){backupsSearched();});
     
-    resetData()
-    loadPBoard(content)
-    pageOpened()
+    resetPB()
+    loadSaveFile(content)
+    draw()
 
     alert('Loaded')
     if(confirm('Save?')) sync.saveAll();

@@ -15,7 +15,7 @@ function prefNumber(field = "", text = "", type = "Number(("){
 return `
 <form class="input-group-append" onsubmit="event.preventDefault();" style="margin: 5px; width: 100%;">
 <a class="form-control bg-inherit" style="color: white;">`+text+`</a>
-<input id="`+field+`" oninput="preferencesCurrentPref['`+field+`'] = `+type+`EbyId('`+field+`').value)); sync.save.dirty=true;" type="number" placeholder="Default: `+new PBoard().preferences[field]+`" value="`+preferencesCurrentPref[field]+`" class="form-control">
+<input id="`+field+`" oninput="preferencesCurrentPref['`+field+`'] = `+type+`EbyId('`+field+`').value)); sync.setDirty();" type="number" placeholder="Default: `+new PBoard().preferences[field]+`" value="`+preferencesCurrentPref[field]+`" class="form-control">
 
 <input type="submit" style="visibility: hidden; width:0px; height:0px; position:absolute;" />
 </form>

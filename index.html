@@ -9,43 +9,25 @@
   <link rel="icon" type="image/png" href="./favicon.png"/>
   <link rel="shortcut icon" type="image/png" href="./favicon.png"/>
 
-  <script src="./_external/jquery-3.3.1.min.js"></script>
-<!--
-<script src="./_external/popper.min.js"></script>
-<script src="./_external/bootstrap.min.js"></script>
-<script src="./_external/bootbox.js"></script>
--->
-<script src="./_external/jquery-ui.min.js"></script>
-<script src="./_external/jquery.ui.touch-punch.js"></script>
-<script src="./_external/js.cookie.min.js"></script>
+  <script src="./_external/js.cookie.min.js"></script>
 
-<!--
-<link rel="stylesheet" href="./_external/bootstrap.min.css">
-<link rel="stylesheet" href="./_external/fa-v4-shims.css">
--->
 <link rel="stylesheet" href="./_external/fa-all.css">
-
 
 <link rel="stylesheet" href="./index.css">
 
 
 
-<script defer src="./js/_utils.js"></script>
-<script defer src="./js/_html.js"></script>
+<script defer src="./_site.js"></script>
 
-<!-- core classes  -->
-<script defer src="./js/Classes_ALL.js"></script>
+<script defer src="./_ALL_JS.js"></script> <!-- auto generated -->
 
-<!--main-->
-<script defer src="./js/_manager.js"></script>
+<script defer src="./_jsEntry.js"></script>
 
-<script defer src="./js/ALL.js"></script> <!-- auto generated -->
 
-<script defer src="./js/_entry.js"></script>
 
 <!-- Connect to storage: google drive -->
 <script defer src="https://apis.google.com/js/api.js"
-onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
+onload="this.onload=()=>{}; storage_gDrive.OnStorageLoad();">
 </script>
 </head>
 
@@ -181,13 +163,13 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
   /* Color differently based on board type: */
   
   [data-type="Text"]{
-    background-color:#ffffe3;
+    background-color:#e9e9bc;
   }
   [data-type="Board"]{
-    background-color:#f0f0f0;
+    background-color:#e2e2e2;
   }
   [data-type="List"]{
-    background-color:#e7f9ff;
+    background-color:#d6edf5;
   }
   
 
@@ -333,8 +315,8 @@ onload="this.onload=()=>{}; drive_storage.OnStorageLoad();">
 
 
   <!-- Status Indicators -->
-  <img id="savingIndicator" src="./icons/saveIndicator.gif" class="statusIndicator" style="top: 60px; display: none;" tabindex="-1"></img>
-  <img id="loadingIndicator" src="./icons/loadIndicator.gif" class="statusIndicator" style="top: 90px; display: none;" tabindex="-1"></img>
+  <img id="savingIndicator" src="./icons/saveIndicator.gif" class="statusIndicator" style="top: 30px; display: none;" tabindex="-1"></img>
+  <img id="loadingIndicator" src="./icons/loadIndicator.gif" class="statusIndicator" style="top: 60px; display: none;" tabindex="-1"></img>
 
 
   <!-- Templates for new boards -->
